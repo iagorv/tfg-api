@@ -25,11 +25,6 @@ public class Juego {
     @Column(name = "desarrollador", length = 100)
     private String desarrollador;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.SET_NULL)
-    @JoinColumn(name = "genero_id")
-    private org.example.api.Entities.Genero genero;
-
     @Column(name = "anio_salida")
     private Integer anioSalida;
 
@@ -74,13 +69,7 @@ public class Juego {
         this.desarrollador = desarrollador;
     }
 
-    public org.example.api.Entities.Genero getGenero() {
-        return genero;
-    }
 
-    public void setGenero(org.example.api.Entities.Genero genero) {
-        this.genero = genero;
-    }
 
     public Integer getAnioSalida() {
         return anioSalida;

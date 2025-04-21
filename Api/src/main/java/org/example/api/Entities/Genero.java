@@ -16,9 +16,7 @@ public class Genero {
     @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
 
-    @OneToMany(mappedBy = "genero")
-    private Set<org.example.api.Entities.Juego> juegos = new LinkedHashSet<>();
-
+  
     public Long getId() {
         return id;
     }
@@ -35,12 +33,5 @@ public class Genero {
         this.nombre = nombre;
     }
 
-    public Set<org.example.api.Entities.Juego> getJuegos() {
-        return juegos;
-    }
-
-    public void setJuegos(Set<org.example.api.Entities.Juego> juegos) {
-        this.juegos = juegos;
-    }
 
 }
