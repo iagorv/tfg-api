@@ -16,7 +16,7 @@ public class Genero {
     @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
 
-  
+
     public Long getId() {
         return id;
     }
