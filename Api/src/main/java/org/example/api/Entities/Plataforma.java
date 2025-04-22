@@ -1,6 +1,8 @@
 package org.example.api.Entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -13,11 +15,13 @@ public class Plataforma {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Size(max = 50)
+    @NotNull
     @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
 
     @OneToMany(mappedBy = "plataforma")
-    private Set<org.example.api.Entities.JuegoPlataforma> juegoPlataformas = new LinkedHashSet<>();
+    private Set<JuegoPlataforma> juegoPlataformas = new LinkedHashSet<>();
 
     public Long getId() {
         return id;
@@ -35,11 +39,11 @@ public class Plataforma {
         this.nombre = nombre;
     }
 
-    public Set<org.example.api.Entities.JuegoPlataforma> getJuegoPlataformas() {
+    public Set<JuegoPlataforma> getJuegoPlataformas() {
         return juegoPlataformas;
     }
 
-    public void setJuegoPlataformas(Set<org.example.api.Entities.JuegoPlataforma> juegoPlataformas) {
+    public void setJuegoPlataformas(Set<JuegoPlataforma> juegoPlataformas) {
         this.juegoPlataformas = juegoPlataformas;
     }
 

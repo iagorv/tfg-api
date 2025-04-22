@@ -1,6 +1,7 @@
 package org.example.api.Entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -12,15 +13,17 @@ public class JuegoPlataforma {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "juego_id", nullable = false)
-    private org.example.api.Entities.Juego juego;
+    private Juego juego;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "plataforma_id", nullable = false)
-    private org.example.api.Entities.Plataforma plataforma;
+    private Plataforma plataforma;
 
     public Long getId() {
         return id;
@@ -30,19 +33,19 @@ public class JuegoPlataforma {
         this.id = id;
     }
 
-    public org.example.api.Entities.Juego getJuego() {
+    public Juego getJuego() {
         return juego;
     }
 
-    public void setJuego(org.example.api.Entities.Juego juego) {
+    public void setJuego(Juego juego) {
         this.juego = juego;
     }
 
-    public org.example.api.Entities.Plataforma getPlataforma() {
+    public Plataforma getPlataforma() {
         return plataforma;
     }
 
-    public void setPlataforma(org.example.api.Entities.Plataforma plataforma) {
+    public void setPlataforma(Plataforma plataforma) {
         this.plataforma = plataforma;
     }
 

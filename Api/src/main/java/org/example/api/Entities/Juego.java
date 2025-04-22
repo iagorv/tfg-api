@@ -1,6 +1,9 @@
 package org.example.api.Entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.example.api.Desarrollador;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -15,6 +18,8 @@ public class Juego {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Size(max = 150)
+    @NotNull
     @Column(name = "nombre", nullable = false, length = 150)
     private String nombre;
 
@@ -22,20 +27,25 @@ public class Juego {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @Column(name = "desarrollador", length = 100)
-    private String desarrollador;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @JoinColumn(name = "desarrollador_id")
+    private Desarrollador desarrollador;
 
     @Column(name = "anio_salida")
     private Integer anioSalida;
 
     @OneToMany(mappedBy = "juego")
-    private Set<org.example.api.Entities.JuegoPlataforma> juegoPlataformas = new LinkedHashSet<>();
+    private Set<JuegoGenero> juegoGeneros = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "juego")
-    private Set<org.example.api.Entities.JuegoUsuarioEstado> juegoUsuarioEstados = new LinkedHashSet<>();
+    private Set<JuegoPlataforma> juegoPlataformas = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "juego")
-    private Set<org.example.api.Entities.Review> reviews = new LinkedHashSet<>();
+    private Set<JuegoUsuarioEstado> juegoUsuarioEstados = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "juego")
+    private Set<Review> reviews = new LinkedHashSet<>();
 
     public Long getId() {
         return id;
@@ -61,15 +71,13 @@ public class Juego {
         this.descripcion = descripcion;
     }
 
-    public String getDesarrollador() {
+    public Desarrollador getDesarrollador() {
         return desarrollador;
     }
 
-    public void setDesarrollador(String desarrollador) {
+    public void setDesarrollador(Desarrollador desarrollador) {
         this.desarrollador = desarrollador;
     }
-
-
 
     public Integer getAnioSalida() {
         return anioSalida;
@@ -79,27 +87,35 @@ public class Juego {
         this.anioSalida = anioSalida;
     }
 
-    public Set<org.example.api.Entities.JuegoPlataforma> getJuegoPlataformas() {
+    public Set<JuegoGenero> getJuegoGeneros() {
+        return juegoGeneros;
+    }
+
+    public void setJuegoGeneros(Set<JuegoGenero> juegoGeneros) {
+        this.juegoGeneros = juegoGeneros;
+    }
+
+    public Set<JuegoPlataforma> getJuegoPlataformas() {
         return juegoPlataformas;
     }
 
-    public void setJuegoPlataformas(Set<org.example.api.Entities.JuegoPlataforma> juegoPlataformas) {
+    public void setJuegoPlataformas(Set<JuegoPlataforma> juegoPlataformas) {
         this.juegoPlataformas = juegoPlataformas;
     }
 
-    public Set<org.example.api.Entities.JuegoUsuarioEstado> getJuegoUsuarioEstados() {
+    public Set<JuegoUsuarioEstado> getJuegoUsuarioEstados() {
         return juegoUsuarioEstados;
     }
 
-    public void setJuegoUsuarioEstados(Set<org.example.api.Entities.JuegoUsuarioEstado> juegoUsuarioEstados) {
+    public void setJuegoUsuarioEstados(Set<JuegoUsuarioEstado> juegoUsuarioEstados) {
         this.juegoUsuarioEstados = juegoUsuarioEstados;
     }
 
-    public Set<org.example.api.Entities.Review> getReviews() {
+    public Set<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviews(Set<org.example.api.Entities.Review> reviews) {
+    public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
     }
 

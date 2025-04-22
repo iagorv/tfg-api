@@ -2,7 +2,6 @@ package org.example.api.Controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.example.api.Entities.Usuario;
 import org.example.api.Entities.dtos.LoginDTO;
 import org.example.api.Entities.dtos.UsuarioDTO;
 import org.example.api.Service.UsuarioService;

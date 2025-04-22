@@ -1,6 +1,7 @@
 package org.example.api.Entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -15,15 +16,17 @@ public class Review {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "juego_id", nullable = false)
-    private org.example.api.Entities.Juego juego;
+    private Juego juego;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "usuario_id", nullable = false)
-    private org.example.api.Entities.Usuario usuario;
+    private Usuario usuario;
 
     @Lob
     @Column(name = "`reseña`")
@@ -32,8 +35,9 @@ public class Review {
     @Column(name = "nota")
     private Integer nota;
 
+    @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "fecha_review")
+    @Column(name = "fecha_review", nullable = false)
     private Instant fechaReview;
 
     public Long getId() {
@@ -44,19 +48,19 @@ public class Review {
         this.id = id;
     }
 
-    public org.example.api.Entities.Juego getJuego() {
+    public Juego getJuego() {
         return juego;
     }
 
-    public void setJuego(org.example.api.Entities.Juego juego) {
+    public void setJuego(Juego juego) {
         this.juego = juego;
     }
 
-    public org.example.api.Entities.Usuario getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(org.example.api.Entities.Usuario usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
