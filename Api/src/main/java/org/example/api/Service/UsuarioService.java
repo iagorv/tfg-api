@@ -3,6 +3,7 @@ package org.example.api.Service;
 
 import org.example.api.Entities.Usuario;
 import org.example.api.Entities.dtos.LoginDTO;
+import org.example.api.Entities.dtos.UsuarioDTO;
 import org.example.api.Repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,22 +18,18 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    // Buscar usuario por email
-    public Optional<Usuario> buscarPorEmail(String email) {
-        return usuarioRepository.findByEmail(email);
-    }
 
-    // Lógica de login (sin encriptación de contraseñas)
-    public boolean login(LoginDTO loginDTO) {
+
+    public UsuarioDTO login(LoginDTO loginDTO) {
         // Buscar al usuario por el email
         Usuario usuario = usuarioRepository.findByEmail(loginDTO.getEmail())
                 .orElse(null);
 
-        if (usuario != null) {
-            // Comparar contraseñas (sin hashing)
-            return usuario.getContraseña().equals(loginDTO.getPassword());
+        if (usuario != null && usuario.getContraseña().equals(loginDTO.getPassword())){
+
+            return new UsuarioDTO(usuario.getId(), usuario.getNombre(), usuario.getEmail());
         }
 
-        return false; // Si no lo encontramos o las contraseñas no coinciden
+        return null;
     }
 }
