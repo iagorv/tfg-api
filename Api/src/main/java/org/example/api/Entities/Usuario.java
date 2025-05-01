@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -41,6 +42,14 @@ public class Usuario {
     @ColumnDefault("1")
     @Column(name = "activo", nullable = false)
     private Boolean activo = false;
+
+    @NotNull
+    @Column(name = "fecha_nacimiento")
+    private LocalDate fechaNacimiento;
+
+    @NotNull
+    @Column(nullable = false)
+    private boolean premium = false;
 
     @OneToMany(mappedBy = "usuario")
     private Set<JuegoUsuarioEstado> juegoUsuarioEstados = new LinkedHashSet<>();
@@ -94,6 +103,23 @@ public class Usuario {
 
     public void setActivo(Boolean activo) {
         this.activo = activo;
+    }
+
+    public @NotNull LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(@NotNull LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    @NotNull
+    public boolean isPremium() {
+        return premium;
+    }
+
+    public void setPremium(@NotNull boolean premium) {
+        this.premium = premium;
     }
 
     public Set<JuegoUsuarioEstado> getJuegoUsuarioEstados() {

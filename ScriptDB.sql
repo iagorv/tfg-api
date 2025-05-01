@@ -9,7 +9,9 @@ CREATE TABLE Usuario (
     email VARCHAR(100) NOT NULL UNIQUE,
     contraseña VARCHAR(255) NOT NULL,
     fecha_alta DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    activo BOOLEAN NOT NULL DEFAULT TRUE
+    activo BOOLEAN NOT NULL DEFAULT TRUE,
+	fecha_nacimiento DATE NOT NULL,
+    premium BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 -- Tabla: Genero
