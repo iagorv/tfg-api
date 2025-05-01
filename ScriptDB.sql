@@ -147,10 +147,10 @@ INSERT INTO Desarrollador (nombre) VALUES
 ('Supergiant Games');
 
 
-INSERT INTO Usuario (nombre, email, contraseña) VALUES 
-('JuanGamer', 'juan@gamer.com', '1234_hash_falso'),
-('LauPlayer', 'laura@juegos.net', 'abcd_hash_falso'),
-('LeoRetro', 'leo@retrofan.org', 'retro_hash_falso');
+INSERT INTO Usuario (nombre, email, contraseña, fecha_nacimiento) VALUES ('JuanGamer', 'juan@gamer.com', '1234_hash_falso', '1989-05-09'),
+('LauPlayer', 'laura@juegos.net', 'abcd_hash_falso', '2009-05-05'),
+ ('LeoRetro', 'leo@retrofan.org', 'retro_hash_falso', '2002-10-18');
+
 
 INSERT INTO Juego (nombre, descripcion, desarrollador_id, anio_salida) VALUES 
 ('Elden Ring', 'Un mundo abierto de fantasía oscura con combate desafiante.', 1, 2022),

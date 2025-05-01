@@ -47,7 +47,8 @@ public class UsuarioService {
         nuevoUsuario.setContraseña(registroDTO.getPassword());
         nuevoUsuario.setActivo(true);
         nuevoUsuario.setFechaAlta(Instant.now());
-
+        nuevoUsuario.setFechaNacimiento(registroDTO.getFechaNacimiento());
+        nuevoUsuario.setPremium(false);
 
         Usuario usuarioGuardado = usuarioRepository.save(nuevoUsuario);
 

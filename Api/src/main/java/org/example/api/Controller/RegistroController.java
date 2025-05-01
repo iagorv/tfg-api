@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 @RestController
 @RequestMapping("/api/registro")
 @Tag(name = "Registro", description = "Endpoints para registrar usuarios")
@@ -25,11 +30,24 @@ public class RegistroController {
     @PostMapping
     public ResponseEntity<?> registrar(@RequestBody RegistroDTO registroDTO) {
         try {
+            if (!registroDTO.getPassword().equals(registroDTO.getConfirmPassword())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Las contraseñas no coinciden.");
+            }
+
+            if (!esMayorDe16(registroDTO.getFechaNacimiento())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Debes ser mayor de 16 años para registrarte.");
+            }
+
             UsuarioDTO usuarioDTO = usuarioService.registrarUsuario(registroDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(usuarioDTO);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
+    }
+
+
+    private boolean esMayorDe16(LocalDate fechaNacimiento) {
+        return ChronoUnit.YEARS.between(fechaNacimiento, LocalDate.now()) >= 16;
     }
 }
 
