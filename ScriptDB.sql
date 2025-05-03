@@ -357,7 +357,8 @@ INSERT INTO Review (juego_id, usuario_id, reseña, nota) VALUES
 
 -- LeoRetro en Stardew
 INSERT INTO Review (juego_id, usuario_id, reseña, nota) VALUES
-(5, 3, 'Mi juego de cabecera. Pura paz.', 10);
+(5, 3, 'Mi juego de cabecera. Pura paz.', 10),
+(18,3,'Me encanta, sin duda el mejor juego de la saga',9);
 
 
 INSERT INTO Juego_Usuario_Estado (usuario_id, juego_id, estado) VALUES

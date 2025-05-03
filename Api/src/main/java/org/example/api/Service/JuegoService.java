@@ -32,4 +32,21 @@ public class JuegoService {
         return resumenes;
     }
 
+    public List<JuegoResumenDTO> obtenerJuegosPopulares() {
+        List<Object[]> juegosPopulares = juegoRepository.findJuegosPopulares();
+        List<JuegoResumenDTO> resumenes = new ArrayList<>();
+
+        // Iteramos sobre los resultados de la subconsulta (cada fila es un Object[])
+        for (Object[] juego : juegosPopulares) {
+            Long id = (Long) juego[0]; // El id del juego
+            String nombre = (String) juego[1]; // El nombre del juego
+            // El número de reseñas está en el tercer campo (num_reviews)
+            resumenes.add(new JuegoResumenDTO(id, nombre));
+        }
+
+        return resumenes;
+    }
+
+
+
 }

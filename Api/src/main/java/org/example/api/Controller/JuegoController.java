@@ -26,4 +26,12 @@ public class JuegoController {
         List<JuegoResumenDTO> resumen = juegoService.obtenerResumenDeJuegos();
         return ResponseEntity.ok(resumen);
     }
+
+    @Operation(summary = "Obtener los 15 juegos con más reviews")
+    @GetMapping("/populares")
+    public ResponseEntity<List<JuegoResumenDTO>> obtenerJuegosPopulares() {
+        List<JuegoResumenDTO> populares = juegoService.obtenerJuegosPopulares();
+        return ResponseEntity.ok(populares);
+    }
+
 }
