@@ -5,6 +5,7 @@ import org.example.api.Entities.Usuario;
 import org.example.api.Entities.dtos.LoginDTO;
 import org.example.api.Entities.dtos.RegistroDTO;
 import org.example.api.Entities.dtos.UsuarioDTO;
+import org.example.api.Entities.dtos.UsuarioInfoDTO;
 import org.example.api.Repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
@@ -53,5 +54,18 @@ public class UsuarioService {
         Usuario usuarioGuardado = usuarioRepository.save(nuevoUsuario);
 
         return new UsuarioDTO(usuarioGuardado.getId(), usuarioGuardado.getNombre(), usuarioGuardado.getEmail());
+    }
+    public UsuarioInfoDTO obtenerInfoUsuarioPorId(Long id) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        return new UsuarioInfoDTO(
+                usuario.getId(),
+                usuario.getNombre(),
+                usuario.getEmail(),
+                usuario.getFechaAlta(),
+                usuario.getFechaNacimiento(),
+                usuario.isPremium()
+        );
     }
 }
