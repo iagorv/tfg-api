@@ -63,16 +63,16 @@ CREATE TABLE Juego_Plataforma (
 );
 
 -- Tabla: Review
-CREATE TABLE Review (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    juego_id BIGINT NOT NULL,
-    usuario_id BIGINT NOT NULL,
-    reseña TEXT,
-    nota INT CHECK (nota BETWEEN 0 AND 10),
-    fecha_review TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (juego_id) REFERENCES Juego(id) ON DELETE CASCADE,
-    FOREIGN KEY (usuario_id) REFERENCES Usuario(id) ON DELETE CASCADE
-);
+	CREATE TABLE Review (
+		id BIGINT AUTO_INCREMENT PRIMARY KEY,
+		juego_id BIGINT NOT NULL,
+		usuario_id BIGINT NOT NULL,
+		reseña TEXT,
+		nota double CHECK (nota BETWEEN 0 AND 10),
+		fecha_review TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+		FOREIGN KEY (juego_id) REFERENCES Juego(id) ON DELETE CASCADE,
+		FOREIGN KEY (usuario_id) REFERENCES Usuario(id) ON DELETE CASCADE
+	);
 
 -- Tabla: Estado del juego para cada usuario
 CREATE TABLE Juego_Usuario_Estado (
@@ -353,7 +353,7 @@ INSERT INTO Review (juego_id, usuario_id, reseña, nota, fecha_review) VALUES
 
 -- LauPlayer comenta Zelda
 INSERT INTO Review (juego_id, usuario_id, reseña, nota) VALUES
-(2, 2, 'Mejor que BOTW. La exploración es brutal.', 9);
+(2, 2, 'Mejor que BOTW. La exploración es brutal.', 9.5);
 
 -- LeoRetro en Stardew
 INSERT INTO Review (juego_id, usuario_id, reseña, nota) VALUES

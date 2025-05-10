@@ -2,10 +2,7 @@ package org.example.api.Service;
 
 
 import org.example.api.Entities.Usuario;
-import org.example.api.Entities.dtos.LoginDTO;
-import org.example.api.Entities.dtos.RegistroDTO;
-import org.example.api.Entities.dtos.UsuarioDTO;
-import org.example.api.Entities.dtos.UsuarioInfoDTO;
+import org.example.api.Entities.dtos.*;
 import org.example.api.Repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
@@ -68,4 +65,27 @@ public class UsuarioService {
                 usuario.isPremium()
         );
     }
+
+    public UsuarioInfoDTO actualizarUsuario(Long id, UsuarioUpdateDTO usuarioUpdateDTO) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        // Actualizamos los datos permitidos
+        usuario.setNombre(usuarioUpdateDTO.getNombre());
+        usuario.setFechaNacimiento(usuarioUpdateDTO.getFechaNacimiento());
+
+        // Guardamos los cambios
+        usuarioRepository.save(usuario);
+
+        // Devolvemos el DTO actualizado
+        return new UsuarioInfoDTO(
+                usuario.getId(),
+                usuario.getNombre(),
+                usuario.getEmail(),
+                usuario.getFechaAlta(),
+                usuario.getFechaNacimiento(),
+                usuario.isPremium()
+        );
+    }
+
 }

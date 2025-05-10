@@ -33,7 +33,7 @@ public class Review {
     private String reseña;
 
     @Column(name = "nota")
-    private Integer nota;
+    private double nota;
 
     @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")
@@ -72,11 +72,11 @@ public class Review {
         this.reseña = reseña;
     }
 
-    public Integer getNota() {
+    public double getNota() {
         return nota;
     }
 
-    public void setNota(Integer nota) {
+    public void setNota(double nota) {
         this.nota = nota;
     }
 
