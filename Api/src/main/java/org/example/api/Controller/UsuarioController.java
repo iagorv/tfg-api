@@ -1,6 +1,7 @@
 package org.example.api.Controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.example.api.Entities.dtos.RegistroDTO;
 import org.example.api.Entities.dtos.UsuarioDTO;
@@ -25,21 +26,33 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
+    @Operation(summary = "Conseguir informacion de usuario")
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioInfoDTO> obtenerInformacionUsuario(@PathVariable Long id) {
         UsuarioInfoDTO usuarioInfoDTO = usuarioService.obtenerInfoUsuarioPorId(id);
         return ResponseEntity.ok(usuarioInfoDTO);
     }
 
+    @Operation(summary = "Actualizar usuario")
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioInfoDTO> actualizarUsuario(
+    public ResponseEntity<?> actualizarUsuario(
             @PathVariable Long id,
             @RequestBody @Valid UsuarioUpdateDTO usuarioUpdateDTO) {
-
-        UsuarioInfoDTO usuarioActualizado = usuarioService.actualizarUsuario(id, usuarioUpdateDTO);
-        return ResponseEntity.ok(usuarioActualizado);
+        if (!esMayorDe16(usuarioUpdateDTO.getFechaNacimiento())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Debes ser mayor de 16 años para actualizar el usuario.");
+        } else {
+            UsuarioInfoDTO usuarioActualizado = usuarioService.actualizarUsuario(id, usuarioUpdateDTO);
+            return ResponseEntity.ok(usuarioActualizado);
+        }
     }
 
+
+
+
+
+
+    @Operation(summary = "Registro de usuario")
     @PostMapping("/registro")
     public ResponseEntity<?> registrar(@RequestBody RegistroDTO registroDTO) {
         try {
