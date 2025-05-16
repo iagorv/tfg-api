@@ -85,7 +85,9 @@ CREATE TABLE Juego_Usuario_Estado (
     FOREIGN KEY (usuario_id) REFERENCES Usuario(id) ON DELETE CASCADE,
     FOREIGN KEY (juego_id) REFERENCES Juego(id) ON DELETE CASCADE
 );
-
+INSERT INTO Usuario (nombre, email, contraseña, fecha_nacimiento) VALUES ('JuanGamer', 'juan@gamer.com', '1234_hash_falso', '1989-05-09'),
+('LauPlayer', 'laura@juegos.net', 'abcd_hash_falso', '2009-05-05'),
+ ('LeoRetro', 'leo@retrofan.org', 'retro_hash_falso', '2002-10-18');
 
 
 INSERT INTO Genero (nombre) VALUES 
@@ -147,9 +149,7 @@ INSERT INTO Desarrollador (nombre) VALUES
 ('Supergiant Games');
 
 
-INSERT INTO Usuario (nombre, email, contraseña, fecha_nacimiento) VALUES ('JuanGamer', 'juan@gamer.com', '1234_hash_falso', '1989-05-09'),
-('LauPlayer', 'laura@juegos.net', 'abcd_hash_falso', '2009-05-05'),
- ('LeoRetro', 'leo@retrofan.org', 'retro_hash_falso', '2002-10-18');
+
 
 
 INSERT INTO Juego (nombre, descripcion, desarrollador_id, anio_salida) VALUES 
@@ -172,7 +172,31 @@ INSERT INTO Juego (nombre, descripcion, desarrollador_id, anio_salida) VALUES
 ('Sonic Mania', 'Un regreso a las raíces 2D del erizo azul con niveles clásicos y nuevos.', 16, 2017),
 ('Pokémon HeartGold', 'Remake mejorado del clásico Pokémon Gold con nuevas funciones.', 17, 2009),
 ('Celeste', 'Plataformas desafiante con narrativa emocional sobre superación personal.', 18, 2018),
-('Hades', 'Roguelike isométrico con combate rápido y mitología griega.', 19, 2020);
+('Hades', 'Roguelike isométrico con combate rápido y mitología griega.', 19, 2020),
+('God of War Ragnarok', 'La épica conclusión de la saga de Kratos y Atreus.', 7, 2022),
+('Metroid Dread', 'La nueva aventura de Samus en una exploración 2D intensa.', 2, 2021),
+('Katana Zero', 'Juego de acción y plataformas con una narrativa noir y combate rápido.', 21, 2019),
+('Animal Crossing: New Horizons', 'Simulador social y de vida en una isla paradisíaca.', 2, 2020),
+('Cyberpunk 2077', 'RPG futurista en un mundo abierto distópico.', 13, 2020),
+('Super Smash Bros. Ultimate', 'Juego de lucha con personajes de múltiples franquicias.', 2, 2018),
+('The Witcher 3: Wild Hunt', 'RPG de mundo abierto con una historia profunda.', 20, 2015),
+('Minecraft', 'Sandbox creativo y de supervivencia con bloques.', 5, 2011),
+('Fortnite', 'Battle royale con construcción y eventos en vivo.', 13, 2017),
+('Dark Souls III', 'RPG de acción desafiante con mundo oscuro y misterioso.', 1, 2016),
+('Animal Crossing: New Leaf', 'Simulador social con muchas personalizaciones.', 2, 2013),
+('The Legend of Zelda: Breath of the Wild', 'Revolucionario juego de aventura en mundo abierto.', 2, 2017),
+('Overwatch', 'Shooter en equipo con héroes únicos.', 8, 2016),
+('Forza Horizon 5', 'Juego de carreras en mundo abierto en México.', 11, 2021),
+('Persona 5 Royal', 'RPG japonés con narrativa profunda y estilo único.', 19, 2020),
+('Celeste', 'Juego de plataformas desafiante con historia emocional.', 18, 2018),
+('Dead Space', 'Survival horror en una estación espacial.', 10, 2008),
+('The Sims 4', 'Simulación de vida con muchas opciones de personalización.', 3, 2014),
+('Mario Kart 8 Deluxe', 'Carreras de karts con personajes icónicos de Nintendo.', 2, 2017),
+('Hollow Knight: Silksong', 'Secuela de Hollow Knight con nuevo protagonista.', 12, 2025);
+
+
+
+
 
 
 
@@ -236,7 +260,46 @@ INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (19, 1), (19, 9); -- Acci�
 INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (20, 1), (20, 3); -- Acción, RPG
 
 
-
+-- 21 God of War Ragnarok
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (21, 1), (21, 2);
+-- 22 Metroid Dread
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (22, 1), (22, 11);
+-- 23 Katana zero
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (23, 1), (23, 9); -- Acción, Puzzle
+-- 24 Animal Crossing: New Horizons
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (24, 7);
+-- 25 Cyberpunk 2077
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (25, 1), (25, 3);
+-- 26 Super Smash Bros. Ultimate
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (26, 1);
+-- 27 The Witcher 3: Wild Hunt
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (27, 3), (27, 2);
+-- 28 Minecraft
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (28, 7), (28, 3);
+-- 29 Fortnite
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (29, 5), (29, 7);
+-- 30 Dark Souls III
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (30, 1), (30, 3);
+-- 31 Animal Crossing: New Leaf
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (31, 7);
+-- 32 Zelda Breath of the Wild
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (32, 2), (32, 3);
+-- 33 Overwatch
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (33, 5);
+-- 34 Forza Horizon 5
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (34, 11);
+-- 35 Persona 5 Royal
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (35, 3), (35, 2);
+-- 36 Celeste (repetido)
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (36, 1), (36, 9);
+-- 37 Dead Space
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (37, 1), (37, 8);
+-- 38 The Sims 4
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (38, 7);
+-- 39 Mario Kart 8 Deluxe
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (39, 11);
+-- 40 Hollow Knight: Silksong
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (40, 1), (40, 3), (40, 11);
 
 
 -- Elden Ring
@@ -343,7 +406,49 @@ INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES
 (20, 2), -- PS5
 (20, 4); -- Switch
 
-
+-- 21 God of War Ragnarok
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (21, 2), (21, 6);
+-- 22 Metroid Dread
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (22, 4);
+-- 23 Katana zero
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES 
+(23, 1), -- PC
+(23, 2), -- PS5
+(23, 4); -- Nintendo Switch
+-- 24 Animal Crossing: New Horizons
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (24, 4);
+-- 25 Cyberpunk 2077
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (25, 1), (25, 2), (25, 3);
+-- 26 Super Smash Bros. Ultimate
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (26, 4);
+-- 27 The Witcher 3: Wild Hunt
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (27, 1), (27, 2), (27, 3);
+-- 28 Minecraft
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (28, 1), (28, 4), (28, 16), (28, 17);
+-- 29 Fortnite
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (29, 1), (29, 2), (29, 3), (29, 4), (29, 16), (29, 17);
+-- 30 Dark Souls III
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (30, 1), (30, 2), (30, 6);
+-- 31 Animal Crossing: New Leaf
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (31, 13);
+-- 32 Zelda Breath of the Wild
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (32, 4), (32, 15);
+-- 33 Overwatch
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (33, 1), (33, 2), (33, 3);
+-- 34 Forza Horizon 5
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (34, 1), (34, 3), (34, 9);
+-- 35 Persona 5 Royal
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (35, 2), (35, 6);
+-- 36 Celeste (repetido)
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (36, 1), (36, 2), (36, 4);
+-- 37 Dead Space
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (37, 6), (37, 7);
+-- 38 The Sims 4
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (38, 1), (38, 2), (38, 3);
+-- 39 Mario Kart 8 Deluxe
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (39, 4), (39, 11);
+-- 40 Hollow Knight: Silksong
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (40, 1), (40, 4);
 
 
 -- JuanGamer reviewea Elden Ring 2 veces
