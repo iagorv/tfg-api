@@ -146,7 +146,8 @@ INSERT INTO Desarrollador (nombre) VALUES
 ('Christian Whitehead'),
 ('Game Freak'),
 ('Matt Makes Games'),
-('Supergiant Games');
+('Supergiant Games'),
+('Askiisoft');
 
 
 
@@ -175,7 +176,7 @@ INSERT INTO Juego (nombre, descripcion, desarrollador_id, anio_salida) VALUES
 ('Hades', 'Roguelike isométrico con combate rápido y mitología griega.', 19, 2020),
 ('God of War Ragnarok', 'La épica conclusión de la saga de Kratos y Atreus.', 7, 2022),
 ('Metroid Dread', 'La nueva aventura de Samus en una exploración 2D intensa.', 2, 2021),
-('Katana Zero', 'Juego de acción y plataformas con una narrativa noir y combate rápido.', 21, 2019),
+('Katana Zero', 'Juego de acción y plataformas con una narrativa noir y combate rápido.', 20, 2019),
 ('Animal Crossing: New Horizons', 'Simulador social y de vida en una isla paradisíaca.', 2, 2020),
 ('Cyberpunk 2077', 'RPG futurista en un mundo abierto distópico.', 13, 2020),
 ('Super Smash Bros. Ultimate', 'Juego de lucha con personajes de múltiples franquicias.', 2, 2018),
