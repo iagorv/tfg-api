@@ -69,10 +69,13 @@ CREATE TABLE Juego_Plataforma (
 		usuario_id BIGINT NOT NULL,
 		reseña TEXT,
 		nota double CHECK (nota BETWEEN 0 AND 10),
-		fecha_review TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+		fecha_review DATE  DEFAULT (CURDATE()),
+
 		FOREIGN KEY (juego_id) REFERENCES Juego(id) ON DELETE CASCADE,
 		FOREIGN KEY (usuario_id) REFERENCES Usuario(id) ON DELETE CASCADE
 	);
+    
+ 
 
 -- Tabla: Estado del juego para cada usuario
 CREATE TABLE Juego_Usuario_Estado (

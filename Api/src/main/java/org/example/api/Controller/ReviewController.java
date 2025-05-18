@@ -1,13 +1,14 @@
 package org.example.api.Controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.persistence.EntityNotFoundException;
+import org.example.api.Entities.dtos.ReviewCrearDTO;
 import org.example.api.Entities.dtos.ReviewDTO;
 import org.example.api.Service.ReviewService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,10 +23,26 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
+    @Operation(summary = "Condeguir las últimas reviews de un usuario")
     @GetMapping("/usuario/{id}/ultimas")
     public ResponseEntity<List<ReviewDTO>> obtenerUltimasTresReviews(@PathVariable Long id) {
         List<ReviewDTO> reviews = reviewService.obtenerUltimasTresReviews(id);
         return ResponseEntity.ok(reviews);
     }
 
+
+    @Operation(summary = "Guardar una nueva review")
+    @PostMapping("/add")
+    public ResponseEntity<?> agregarReview(@RequestBody ReviewCrearDTO reviewCreateDTO) {
+        try {
+            reviewService.guardarReview(reviewCreateDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Review añadida exitosamente.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del servidor.");
+        }
+    }
 }

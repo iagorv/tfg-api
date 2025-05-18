@@ -1,6 +1,7 @@
 package org.example.api.Entities.dtos;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 public class ReviewDTO {
     private Long id;
@@ -8,9 +9,9 @@ public class ReviewDTO {
     private String reseña;
     private Double nota;
     private Long juegoId;
-    private Instant fechaReview;
+    private LocalDate  fechaReview;
 
-    public ReviewDTO(Long id, String tituloJuego, String reseña, Double nota, Long juegoId, Instant fechaReview) {
+    public ReviewDTO(Long id, String tituloJuego, String reseña, Double nota, Long juegoId, LocalDate fechaReview) {
         this.id = id;
         this.tituloJuego = tituloJuego;
         this.reseña = reseña;
@@ -59,11 +60,11 @@ public class ReviewDTO {
         this.juegoId = juegoId;
     }
 
-    public Instant getFechaReview() {
+    public LocalDate  getFechaReview() {
         return fechaReview;
     }
 
-    public void setFechaReview(Instant fechaReview) {
+    public void setFechaReview(LocalDate  fechaReview) {
         this.fechaReview = fechaReview;
     }
 }

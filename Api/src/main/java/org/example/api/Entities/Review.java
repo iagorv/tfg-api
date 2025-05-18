@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "review")
@@ -38,7 +39,7 @@ public class Review {
     @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "fecha_review", nullable = false)
-    private Instant fechaReview;
+    private LocalDate fechaReview;
 
     public Long getId() {
         return id;
@@ -80,11 +81,11 @@ public class Review {
         this.nota = nota;
     }
 
-    public Instant getFechaReview() {
+    public LocalDate  getFechaReview() {
         return fechaReview;
     }
 
-    public void setFechaReview(Instant fechaReview) {
+    public void setFechaReview(LocalDate  fechaReview) {
         this.fechaReview = fechaReview;
     }
 
