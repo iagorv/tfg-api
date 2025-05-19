@@ -32,15 +32,14 @@ public class JuegoController {
         List<JuegoResumenDTO> populares = juegoService.obtenerJuegosPopulares();
         return ResponseEntity.ok(populares);
     }
+
     @Operation(summary = "Obtener información detallada de un juego")
     @GetMapping("/{id}")
-    public ResponseEntity<JuegoDetalleDTO> obtenerJuegoDetalle(
-            @PathVariable Long id,
-            @RequestParam(required = false) List<String> include) {
-
-        JuegoDetalleDTO juegoDetalle = juegoService.obtenerJuegoDetalle(id);
-        return ResponseEntity.ok(juegoDetalle);
+    public ResponseEntity<JuegoDetalleDTO> obtenerJuegoDetalle(@PathVariable Long id) {
+        JuegoDetalleDTO detalle = juegoService.obtenerJuegoDetalle(id);
+        return ResponseEntity.ok(detalle);
     }
+
 
 
 }

@@ -8,6 +8,7 @@ import org.example.api.Repository.JuegoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -47,29 +48,50 @@ public class JuegoService {
         return resumenes;
     }
 
+
+
     public JuegoDetalleDTO obtenerJuegoDetalle(Long id) {
+        List<Object[]> results = juegoRepository.findJuegoDetalleById(id);
 
-        Juego juego = juegoRepository.findById(id).orElseThrow(() -> new RuntimeException("Juego no encontrado"));
+        if (results.isEmpty()) {
+            throw new RuntimeException("Juego no encontrado");
+        }
 
-
-        String desarrollador = juego.getDesarrollador() != null ? juego.getDesarrollador().getNombre() : "Desconocido";
-
-
-        List<String> generos = juego.getJuegoGeneros()
-                .stream()
-                .map(juegoGenero -> juegoGenero.getGenero().getNombre())
-                .toList();
-
-
-        List<String> plataformas = juego.getJuegoPlataformas()
-                .stream()
-                .map(juegoPlataforma -> juegoPlataforma.getPlataforma().getNombre())
-                .toList();
+        Object[] result = results.get(0);
+        System.out.println("result class: " + result.getClass());
+        System.out.println("result[0] class: " + result[0].getClass());
+        System.out.println("result[0]  " + result[0]);
+        System.out.println("result[0]  " + result[1]);
+        System.out.println("result[0]  " + result[2]);
+        System.out.println("result: " + Arrays.deepToString(result));
+        System.out.println("result length: " + result.length);
 
 
-        return new JuegoDetalleDTO(juego.getId(), juego.getNombre(), juego.getDescripcion(), desarrollador, juego.getAnioSalida(), generos, plataformas);
+        System.out.println("hola caracola");
+        Long juegoId = (Long) result[0];
+        System.out.println(juegoId);
+        String nombre = (String) result[1];
+        System.out.println(nombre);
+        String descripcion = (String) result[2];
+        System.out.println(descripcion);
+        String desarrollador = (String) result[3];
+        System.out.println(desarrollador);
+        Integer anioSalida = result[4] != null ? ((Number) result[4]).intValue() : null;
+        System.out.println(anioSalida);
+
+        // Los generos y plataformas vienen como cadenas separadas por coma, hay que convertir a lista
+        List<String> generos = new ArrayList<>();
+        if (result[5] != null) {
+            generos = Arrays.asList(((String) result[5]).split(",\\s*"));
+        }
+
+        List<String> plataformas = new ArrayList<>();
+        if (result[6] != null) {
+            plataformas = Arrays.asList(((String) result[6]).split(",\\s*"));
+        }
+
+        return new JuegoDetalleDTO(juegoId, nombre, descripcion, desarrollador, anioSalida, generos, plataformas);
     }
-
 
 
 

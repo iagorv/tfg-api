@@ -38,7 +38,7 @@ CREATE TABLE Juego (
     nombre VARCHAR(150) NOT NULL,
     descripcion TEXT,
     desarrollador_id INT,
-    anio_salida INT,
+    año_salida INT,
     FOREIGN KEY (desarrollador_id) REFERENCES Desarrollador(id) ON DELETE SET NULL
 );
 
@@ -156,7 +156,7 @@ INSERT INTO Desarrollador (nombre) VALUES
 
 
 
-INSERT INTO Juego (nombre, descripcion, desarrollador_id, anio_salida) VALUES 
+INSERT INTO Juego (nombre, descripcion, desarrollador_id, año_salida) VALUES 
 ('Elden Ring', 'Un mundo abierto de fantasía oscura con combate desafiante.', 1, 2022),
 ('The Legend of Zelda: Tears of the Kingdom', 'Secuela directa de Breath of the Wild.', 2, 2023),
 ('FIFA 24', 'El simulador de fútbol más popular.', 3, 2023),
