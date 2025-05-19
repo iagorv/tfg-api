@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.example.api.Entities.dtos.JuegoDetalleDTO;
 import org.example.api.Entities.dtos.JuegoResumenDTO;
 import org.example.api.Service.JuegoService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,9 +36,14 @@ public class JuegoController {
 
     @Operation(summary = "Obtener información detallada de un juego")
     @GetMapping("/{id}")
-    public ResponseEntity<JuegoDetalleDTO> obtenerJuegoDetalle(@PathVariable Long id) {
+    public ResponseEntity<?> obtenerJuegoDetalle(@PathVariable Long id) {
         JuegoDetalleDTO detalle = juegoService.obtenerJuegoDetalle(id);
-        return ResponseEntity.ok(detalle);
+
+        if (detalle != null) {
+            return ResponseEntity.ok(detalle); 
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Juego con ID " + id + " no encontrado");
+        }
     }
 
 

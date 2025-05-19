@@ -5,7 +5,9 @@ import org.example.api.Entities.Juego;
 import org.example.api.Entities.dtos.JuegoDetalleDTO;
 import org.example.api.Entities.dtos.JuegoResumenDTO;
 import org.example.api.Repository.JuegoRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,7 +56,7 @@ public class JuegoService {
         List<Object[]> results = juegoRepository.findJuegoDetalleById(id);
 
         if (results.isEmpty()) {
-            throw new RuntimeException("Juego no encontrado");
+            return null;
         }
 
         Object[] result = results.get(0);
