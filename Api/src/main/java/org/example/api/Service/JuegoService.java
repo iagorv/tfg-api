@@ -2,6 +2,7 @@ package org.example.api.Service;
 
 
 import org.example.api.Entities.Juego;
+import org.example.api.Entities.dtos.JuegoDetalleDTO;
 import org.example.api.Entities.dtos.JuegoResumenDTO;
 import org.example.api.Repository.JuegoRepository;
 import org.springframework.stereotype.Service;
@@ -36,16 +37,40 @@ public class JuegoService {
         List<Object[]> juegosPopulares = juegoRepository.findJuegosPopulares();
         List<JuegoResumenDTO> resumenes = new ArrayList<>();
 
-        // Iteramos sobre los resultados de la subconsulta (cada fila es un Object[])
+
         for (Object[] juego : juegosPopulares) {
             Long id = (Long) juego[0]; // El id del juego
             String nombre = (String) juego[1]; // El nombre del juego
-            // El número de reseñas está en el tercer campo (num_reviews)
             resumenes.add(new JuegoResumenDTO(id, nombre));
         }
 
         return resumenes;
     }
+
+    public JuegoDetalleDTO obtenerJuegoDetalle(Long id) {
+
+        Juego juego = juegoRepository.findById(id).orElseThrow(() -> new RuntimeException("Juego no encontrado"));
+
+
+        String desarrollador = juego.getDesarrollador() != null ? juego.getDesarrollador().getNombre() : "Desconocido";
+
+
+        List<String> generos = juego.getJuegoGeneros()
+                .stream()
+                .map(juegoGenero -> juegoGenero.getGenero().getNombre())
+                .toList();
+
+
+        List<String> plataformas = juego.getJuegoPlataformas()
+                .stream()
+                .map(juegoPlataforma -> juegoPlataforma.getPlataforma().getNombre())
+                .toList();
+
+
+        return new JuegoDetalleDTO(juego.getId(), juego.getNombre(), juego.getDescripcion(), desarrollador, juego.getAnioSalida(), generos, plataformas);
+    }
+
+
 
 
 

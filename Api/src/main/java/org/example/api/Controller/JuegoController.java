@@ -2,12 +2,11 @@ package org.example.api.Controller;
 
 
 import io.swagger.v3.oas.annotations.Operation;
+import org.example.api.Entities.dtos.JuegoDetalleDTO;
 import org.example.api.Entities.dtos.JuegoResumenDTO;
 import org.example.api.Service.JuegoService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,5 +32,15 @@ public class JuegoController {
         List<JuegoResumenDTO> populares = juegoService.obtenerJuegosPopulares();
         return ResponseEntity.ok(populares);
     }
+    @Operation(summary = "Obtener información detallada de un juego")
+    @GetMapping("/{id}")
+    public ResponseEntity<JuegoDetalleDTO> obtenerJuegoDetalle(
+            @PathVariable Long id,
+            @RequestParam(required = false) List<String> include) {
+
+        JuegoDetalleDTO juegoDetalle = juegoService.obtenerJuegoDetalle(id);
+        return ResponseEntity.ok(juegoDetalle);
+    }
+
 
 }
