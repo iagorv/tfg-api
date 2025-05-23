@@ -32,7 +32,7 @@ public class Juego {
     @JoinColumn(name = "desarrollador_id")
     private Desarrollador desarrollador;
 
-    @Column(name = "anio_salida")
+    @Column(name = "año_salida")
     private Integer anioSalida;
 
     @OneToMany(mappedBy = "juego")

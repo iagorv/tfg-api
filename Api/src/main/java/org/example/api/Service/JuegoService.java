@@ -3,6 +3,7 @@ package org.example.api.Service;
 
 import org.example.api.Entities.Juego;
 import org.example.api.Entities.dtos.JuegoDetalleDTO;
+import org.example.api.Entities.dtos.JuegoNombreDTO;
 import org.example.api.Entities.dtos.JuegoResumenDTO;
 import org.example.api.Repository.JuegoRepository;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JuegoService {
@@ -94,7 +96,10 @@ public class JuegoService {
 
         return new JuegoDetalleDTO(juegoId, nombre, descripcion, desarrollador, anioSalida, generos, plataformas);
     }
-
+    public JuegoNombreDTO obtenerNombrePorId(Long id) {
+        Optional<Juego> juego = juegoRepository.findById(id);
+        return juego.map(j -> new JuegoNombreDTO(j.getId(), j.getNombre())).orElse(null);
+    }
 
 
 

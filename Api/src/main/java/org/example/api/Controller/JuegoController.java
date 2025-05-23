@@ -2,7 +2,9 @@ package org.example.api.Controller;
 
 
 import io.swagger.v3.oas.annotations.Operation;
+import org.example.api.Entities.Juego;
 import org.example.api.Entities.dtos.JuegoDetalleDTO;
+import org.example.api.Entities.dtos.JuegoNombreDTO;
 import org.example.api.Entities.dtos.JuegoResumenDTO;
 import org.example.api.Service.JuegoService;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/juegos")
@@ -41,6 +44,17 @@ public class JuegoController {
 
         if (detalle != null) {
             return ResponseEntity.ok(detalle); 
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Juego con ID " + id + " no encontrado");
+        }
+    }
+    @Operation(summary = "Obtener solo el nombre del juego")
+    @GetMapping("/{id}/nombre")
+    public ResponseEntity<?> obtenerNombreJuego(@PathVariable Long id) {
+        JuegoNombreDTO dto = juegoService.obtenerNombrePorId(id);
+
+        if (dto != null) {
+            return ResponseEntity.ok(dto);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Juego con ID " + id + " no encontrado");
         }

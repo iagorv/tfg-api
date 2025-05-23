@@ -4,6 +4,7 @@ package org.example.api.Service;
 import org.example.api.Entities.Usuario;
 import org.example.api.Entities.dtos.*;
 import org.example.api.Repository.UsuarioRepository;
+import org.example.api.util.PasswordUtil;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -25,9 +26,12 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findByEmail(loginDTO.getEmail())
                 .orElse(null);
 
-        if (usuario != null && usuario.getContraseña().equals(loginDTO.getPassword())){
+        if (usuario != null) {
+            String passwordHash = PasswordUtil.hashPassword(loginDTO.getPassword());
 
-            return new UsuarioDTO(usuario.getId(), usuario.getNombre(), usuario.getEmail());
+            if (usuario.getContraseña().equals(passwordHash)) {
+                return new UsuarioDTO(usuario.getId(), usuario.getNombre(), usuario.getEmail());
+            }
         }
 
         return null;
@@ -42,7 +46,7 @@ public class UsuarioService {
         Usuario nuevoUsuario = new Usuario();
         nuevoUsuario.setNombre(registroDTO.getNombre());
         nuevoUsuario.setEmail(registroDTO.getEmail());
-        nuevoUsuario.setContraseña(registroDTO.getPassword());
+        nuevoUsuario.setContraseña(PasswordUtil.hashPassword(registroDTO.getPassword()));
         nuevoUsuario.setActivo(true);
         nuevoUsuario.setFechaAlta(Instant.now());
         nuevoUsuario.setFechaNacimiento(registroDTO.getFechaNacimiento());
