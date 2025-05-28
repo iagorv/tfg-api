@@ -36,6 +36,13 @@ public class ReviewService {
         if (reviewCreateDTO.getNota() < 0 || reviewCreateDTO.getNota() > 10) {
             throw new IllegalArgumentException("La nota debe estar entre 0 y 10.");
         }
+
+        boolean esPremium = usuarioRepository.esPremium(reviewCreateDTO.getUsuarioId());
+        int maxLongitud = esPremium ? 800 : 300 ;
+
+        if (reviewCreateDTO.getReseña() != null && reviewCreateDTO.getReseña().length() > maxLongitud) {
+            throw new IllegalArgumentException("La reseña supera el límite de " + maxLongitud + " caracteres.");
+        }
         Juego juego = juegoRepository.findById(reviewCreateDTO.getJuegoId())
                 .orElseThrow(() -> new EntityNotFoundException("Juego no encontrado"));
 

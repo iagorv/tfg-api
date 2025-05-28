@@ -30,7 +30,8 @@ public class UsuarioService {
             String passwordHash = PasswordUtil.hashPassword(loginDTO.getPassword());
 
             if (usuario.getContraseña().equals(passwordHash)) {
-                return new UsuarioDTO(usuario.getId(), usuario.getNombre(), usuario.getEmail());
+                return new UsuarioDTO(usuario.getId(), usuario.getNombre(), usuario.getEmail(), usuario.isPremium());
+
             }
         }
 
@@ -54,7 +55,7 @@ public class UsuarioService {
 
         Usuario usuarioGuardado = usuarioRepository.save(nuevoUsuario);
 
-        return new UsuarioDTO(usuarioGuardado.getId(), usuarioGuardado.getNombre(), usuarioGuardado.getEmail());
+        return new UsuarioDTO(usuarioGuardado.getId(), usuarioGuardado.getNombre(), usuarioGuardado.getEmail(),usuarioGuardado.isPremium());
     }
     public UsuarioInfoDTO obtenerInfoUsuarioPorId(Long id) {
         Usuario usuario = usuarioRepository.findById(id)

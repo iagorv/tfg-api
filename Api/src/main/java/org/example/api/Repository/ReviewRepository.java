@@ -23,6 +23,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     JOIN r.juego j
     WHERE r.usuario.id = :usuarioId
     ORDER BY r.fechaReview DESC
+    limit 3
     """)
     List<ReviewDTO> findTop3ByUsuarioId(@Param("usuarioId") Long usuarioId);
 }

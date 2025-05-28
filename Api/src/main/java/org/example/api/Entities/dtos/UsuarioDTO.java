@@ -4,11 +4,13 @@ public class UsuarioDTO {
     private String email;
     private Long Id;
     private String nombre;
+    private boolean esPremium;
 
-    public UsuarioDTO(Long Id, String nombre, String email) {
+    public UsuarioDTO(Long Id, String nombre, String email, boolean esPremium) {
         this.Id = Id;
         this.nombre = nombre;
         this.email = email;
+        this.esPremium = esPremium;
     }
     public String getEmail() {
         return email;
@@ -29,6 +31,11 @@ public class UsuarioDTO {
         this.nombre = nombre;
     }
 
+    public boolean isEsPremium() {
+        return esPremium;
+    }
 
-
+    public void setEsPremium(boolean esPremium) {
+        this.esPremium = esPremium;
+    }
 }
