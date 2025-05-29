@@ -170,7 +170,7 @@ INSERT INTO Juego (nombre, descripcion, desarrollador_id, año_salida) VALUES
 ('Resident Evil 4', 'Survival horror con acción en tercera persona.', 10, 2005),
 ('Gran Turismo 7', 'Simulador de conducción con cientos de vehículos.', 11, 2022),
 ('Hollow Knight', 'Metroidvania en un mundo subterráneo dibujado a mano.', 12, 2017),
-('Tetris Effect', 'Una versión moderna del clásico puzzle con música envolvente.', 13, 2018),
+('Tetris Effect', 'Una versión moderna del clásico puzzle con música envolvente.', 13, 2018), /*Cambiar  */
 ('Among Us', 'Juego multijugador de deducción social en el espacio.', 14, 2018),
 ('Crash Bandicoot N. Sane Trilogy', 'Remasterización de los tres primeros juegos clásicos de Crash.', 15, 2017),
 ('Sonic Mania', 'Un regreso a las raíces 2D del erizo azul con niveles clásicos y nuevos.', 16, 2017),
@@ -186,13 +186,13 @@ INSERT INTO Juego (nombre, descripcion, desarrollador_id, año_salida) VALUES
 ('The Witcher 3: Wild Hunt', 'RPG de mundo abierto con una historia profunda.', 20, 2015),
 ('Minecraft', 'Sandbox creativo y de supervivencia con bloques.', 5, 2011),
 ('Fortnite', 'Battle royale con construcción y eventos en vivo.', 13, 2017),
-('Dark Souls III', 'RPG de acción desafiante con mundo oscuro y misterioso.', 1, 2016),
+('Dark Souls III', 'RPG de acción desafiante con mundo oscuro y misterioso.', 1, 2016), /*Cambiar  */
 ('Animal Crossing: New Leaf', 'Simulador social con muchas personalizaciones.', 2, 2013),
 ('The Legend of Zelda: Breath of the Wild', 'Revolucionario juego de aventura en mundo abierto.', 2, 2017),
 ('Overwatch', 'Shooter en equipo con héroes únicos.', 8, 2016),
 ('Forza Horizon 5', 'Juego de carreras en mundo abierto en México.', 11, 2021),
 ('Persona 5 Royal', 'RPG japonés con narrativa profunda y estilo único.', 19, 2020),
-('Celeste', 'Juego de plataformas desafiante con historia emocional.', 18, 2018),
+('Celeste', 'Juego de plataformas desafiante con historia emocional.', 18, 2018), /*Cambiar  */
 ('Dead Space', 'Survival horror en una estación espacial.', 10, 2008),
 ('The Sims 4', 'Simulación de vida con muchas opciones de personalización.', 3, 2014),
 ('Mario Kart 8 Deluxe', 'Carreras de karts con personajes icónicos de Nintendo.', 2, 2017),
