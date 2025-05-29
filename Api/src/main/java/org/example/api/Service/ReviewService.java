@@ -5,6 +5,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.example.api.Entities.Juego;
 import org.example.api.Entities.Review;
 import org.example.api.Entities.Usuario;
+import org.example.api.Entities.dtos.ReviewConUsuarioDTO;
 import org.example.api.Entities.dtos.ReviewCrearDTO;
 import org.example.api.Entities.dtos.ReviewDTO;
 import org.example.api.Repository.JuegoRepository;
@@ -57,4 +58,10 @@ public class ReviewService {
         review.setFechaReview(reviewCreateDTO.getFechaCreacion());
         reviewRepository.save(review);
     }
+
+    public List<ReviewConUsuarioDTO> obtenerUltimasReviewsDeJuegoConUsuario(Long juegoId) {
+        return reviewRepository.findTop6ByJuegoIdConUsuario(juegoId);
+    }
+
+
 }

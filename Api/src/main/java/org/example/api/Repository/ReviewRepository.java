@@ -2,6 +2,7 @@ package org.example.api.Repository;
 
 import org.example.api.Entities.Review;
 import org.example.api.Entities.Usuario;
+import org.example.api.Entities.dtos.ReviewConUsuarioDTO;
 import org.example.api.Entities.dtos.ReviewDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,4 +27,24 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     limit 3
     """)
     List<ReviewDTO> findTop3ByUsuarioId(@Param("usuarioId") Long usuarioId);
+
+
+    @Query("""
+    SELECT new org.example.api.Entities.dtos.ReviewConUsuarioDTO(
+        r.id,
+        u.nombre,
+        r.reseña,
+        r.nota,
+        j.id,
+        r.fechaReview
+    )
+    FROM Review r
+    JOIN r.juego j
+    JOIN r.usuario u
+    WHERE j.id = :juegoId
+    ORDER BY r.fechaReview DESC
+""")
+    List<ReviewConUsuarioDTO> findTop6ByJuegoIdConUsuario(@Param("juegoId") Long juegoId);
+
+
 }

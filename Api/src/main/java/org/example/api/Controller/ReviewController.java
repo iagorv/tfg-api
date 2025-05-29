@@ -3,6 +3,7 @@ package org.example.api.Controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.persistence.EntityNotFoundException;
+import org.example.api.Entities.dtos.ReviewConUsuarioDTO;
 import org.example.api.Entities.dtos.ReviewCrearDTO;
 import org.example.api.Entities.dtos.ReviewDTO;
 import org.example.api.Service.ReviewService;
@@ -45,4 +46,12 @@ public class ReviewController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del servidor.");
         }
     }
+
+    @Operation(summary = "Obtener reseñas de un juego con nombre de usuario")
+    @GetMapping("/juego/{juegoId}/con-usuario")
+    public ResponseEntity<List<ReviewConUsuarioDTO>> obtenerReviewsDeJuegoConUsuario(@PathVariable Long juegoId) {
+        List<ReviewConUsuarioDTO> reviews = reviewService.obtenerUltimasReviewsDeJuegoConUsuario(juegoId);
+        return ResponseEntity.ok(reviews);
+    }
+
 }
