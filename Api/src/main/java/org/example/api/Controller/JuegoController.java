@@ -60,6 +60,14 @@ public class JuegoController {
         }
     }
 
+    @Operation(summary = "Obtener juegos similares por género")
+    @GetMapping("/{id}/similares")
+    public ResponseEntity<List<JuegoResumenDTO>> obtenerJuegosSimilares(@PathVariable Long id) {
+        List<JuegoResumenDTO> similares = juegoService.obtenerJuegosSimilares(id);
+        return ResponseEntity.ok(similares);
+    }
+
+
 
 
 }

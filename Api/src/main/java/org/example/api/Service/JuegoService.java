@@ -101,6 +101,20 @@ public class JuegoService {
         return juego.map(j -> new JuegoNombreDTO(j.getId(), j.getNombre())).orElse(null);
     }
 
+    public List<JuegoResumenDTO> obtenerJuegosSimilares(Long juegoId) {
+        List<Object[]> similares = juegoRepository.findJuegosSimilares(juegoId);
+        List<JuegoResumenDTO> resultado = new ArrayList<>();
+
+        for (Object[] fila : similares) {
+            Long id = ((Number) fila[0]).longValue();
+            String nombre = (String) fila[1];
+            resultado.add(new JuegoResumenDTO(id, nombre));
+        }
+
+        return resultado;
+    }
+
+
 
 
 }

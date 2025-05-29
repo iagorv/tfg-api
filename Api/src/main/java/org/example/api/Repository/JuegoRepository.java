@@ -36,5 +36,24 @@ public interface JuegoRepository extends JpaRepository<Juego, Long> {
             LEFT JOIN desarrollador d ON j.desarrollador_id = d.id
             WHERE j.id = :id
             """, nativeQuery = true)
+
     List<Object[]> findJuegoDetalleById(@Param("id") Long id);
+    @Query(value = """
+    SELECT j.id, j.nombre, COUNT(*) AS generos_en_comun
+    FROM juego j
+    JOIN juego_genero jg ON j.id = jg.juego_id
+    WHERE j.id != :juegoId
+      AND jg.genero_id IN (
+          SELECT genero_id
+          FROM juego_genero
+          WHERE juego_id = :juegoId
+      )
+    GROUP BY j.id, j.nombre
+    ORDER BY generos_en_comun DESC
+    LIMIT 5
+    """, nativeQuery = true)
+    List<Object[]> findJuegosSimilares(@Param("juegoId") Long juegoId);
+
+
+
 }
