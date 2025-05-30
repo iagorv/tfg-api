@@ -477,4 +477,53 @@ INSERT INTO Juego_Usuario_Estado (usuario_id, juego_id, estado) VALUES
 (3, 5, 'favorito'),
 (2, 3, 'pendiente');
 
+INSERT INTO Usuario (nombre, email, contraseña, fecha_nacimiento) VALUES
+('AnaPixel', 'ana@pixellove.com', 'pass_hash_falso1', '1995-08-12'),
+('GamerX99', 'gamerx99@hotspot.com', 'hash_g99', '1987-11-03'),
+('RetroQueen', 'retroqueen@oldschool.net', 'oldschool_hash', '1990-04-21'),
+('SwitchMaster', 'switch@hybrids.com', 'ninty_hash', '2000-06-22'),
+('IndieFan87', 'indiefan87@dreammail.org', 'indie_hash', '1985-02-14');
+
+-- AnaPixel reviews
+INSERT INTO Review (usuario_id, juego_id, reseña, nota, fecha_review) VALUES
+(4, 1, 'Un mundo brutalmente hermoso. Difícil pero adictivo.', 9.5, '2023-03-22'),
+(4, 2, 'Zelda nunca decepciona. Gran secuela.', 9.8, '2023-06-15'),
+(4, 24, 'Ideal para relajarse. Me encantan mis vecinos.', 8.5, '2024-01-10');
+
+-- GamerX99 reviews
+INSERT INTO Review (usuario_id, juego_id, reseña, nota, fecha_review) VALUES
+(5, 9, 'El mejor Call of Duty de la saga moderna.', 9.0, '2020-09-18'),
+(5, 25, 'Mucho mejor tras los parches, gran historia y ambiente.', 8.0, '2024-05-02'),
+(5, 20, 'Acción intensa, personajes geniales. Una joya indie.', 9.4, '2022-10-10');
+
+-- RetroQueen reviews
+INSERT INTO Review (usuario_id, juego_id, reseña, nota, fecha_review) VALUES
+(6, 8, 'Una obra maestra de Nintendo. Gravedad espectacular.', 10.0, '2021-11-03'),
+(6, 17, 'Gran homenaje a los clásicos. Sonic está de vuelta.', 8.8, '2020-07-12'),
+(6, 11, 'Una joya de survival horror. Sigue dando miedo.', 9.3, '2019-10-28');
+
+-- SwitchMaster reviews
+INSERT INTO Review (usuario_id, juego_id, reseña, nota, fecha_review) VALUES
+(7, 4, 'Shooter sólido, pero esperaba más del modo historia.', 7.5, '2022-04-06'),
+(7, 22, 'Exploración tensa y fluida. Samus brilla.', 9.0, '2023-01-19'),
+(7, 39, 'Carreras muy divertidas con amigos. Siempre vuelve.', 9.1, '2024-04-05');
+
+-- IndieFan87 reviews
+INSERT INTO Review (usuario_id, juego_id, reseña, nota, fecha_review) VALUES
+(8, 13, 'Arte precioso y combate desafiante. Obra de culto.', 9.7, '2021-12-07'),
+(8, 19, 'Increíble. Historia conmovedora y controles precisos.', 9.6, '2022-02-13'),
+(8, 36, 'Rejugable al 100%. Celeste es un 10 emocional.', 10.0, '2023-09-23');
+
+INSERT INTO Review (usuario_id, juego_id, reseña, nota, fecha_review) VALUES
+(2, 16, 'Directo a la infancia', 10, '2025-05-23'),
+(4, 16, 'Directo a la infancia', 8.6, '2025-05-23'),
+(3, 16, 'Directo a la infancia', 8.25, '2025-01-23'),
+(4, 16, 'Directo a la infancia', 5, '2025-05-07'),
+(4, 16, 'Directo a la infancia', 6, '2025-05-23'),
+(6, 16, 'Directo a la infancia', 7.5, '2025-05-23'),
+(6, 16, 'Directo a la infancia', 6.37, '2025-05-23'),
+(1, 16, 'Directo a la infancia', 8.5, '2025-05-23');
+
+
+
 

@@ -3,6 +3,7 @@ package org.example.api.Controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.persistence.EntityNotFoundException;
+import org.example.api.Entities.dtos.DistribucionNotasDTO;
 import org.example.api.Entities.dtos.ReviewConUsuarioDTO;
 import org.example.api.Entities.dtos.ReviewCrearDTO;
 import org.example.api.Entities.dtos.ReviewDTO;
@@ -53,5 +54,13 @@ public class ReviewController {
         List<ReviewConUsuarioDTO> reviews = reviewService.obtenerUltimasReviewsDeJuegoConUsuario(juegoId);
         return ResponseEntity.ok(reviews);
     }
+
+    @Operation(summary = "Obtener la distribución de notas para un juego")
+    @GetMapping("/juego/{juegoId}/distribucion")
+    public ResponseEntity<DistribucionNotasDTO> obtenerDistribucion(@PathVariable Long juegoId) {
+        DistribucionNotasDTO distribucion = reviewService.obtenerDistribucionNotasPorJuego(juegoId);
+        return ResponseEntity.ok(distribucion);
+    }
+
 
 }

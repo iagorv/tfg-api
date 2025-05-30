@@ -47,4 +47,10 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     List<ReviewConUsuarioDTO> findTop6ByJuegoIdConUsuario(@Param("juegoId") Long juegoId);
 
 
+
+    @Query("SELECT r.nota FROM Review r WHERE r.juego.id = :juegoId")
+    List<Double> findNotasByJuegoId(@Param("juegoId") Long juegoId);
+
+
+
 }

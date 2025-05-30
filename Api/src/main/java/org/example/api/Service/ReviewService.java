@@ -5,6 +5,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.example.api.Entities.Juego;
 import org.example.api.Entities.Review;
 import org.example.api.Entities.Usuario;
+import org.example.api.Entities.dtos.DistribucionNotasDTO;
 import org.example.api.Entities.dtos.ReviewConUsuarioDTO;
 import org.example.api.Entities.dtos.ReviewCrearDTO;
 import org.example.api.Entities.dtos.ReviewDTO;
@@ -61,6 +62,26 @@ public class ReviewService {
 
     public List<ReviewConUsuarioDTO> obtenerUltimasReviewsDeJuegoConUsuario(Long juegoId) {
         return reviewRepository.findTop6ByJuegoIdConUsuario(juegoId);
+    }
+
+    public DistribucionNotasDTO obtenerDistribucionNotasPorJuego(Long juegoId) {
+        List<Double> notas = reviewRepository.findNotasByJuegoId(juegoId);
+
+        if (notas.isEmpty()) {
+            return new DistribucionNotasDTO(0, new int[10]);
+        }
+
+        int[] conteos = new int[10];
+        double suma = 0;
+
+        for (Double nota : notas) {
+            suma += nota;
+            int indice = (int) Math.min(nota, 9); // Asegura que 10 no cause IndexOutOfBounds
+            conteos[indice]++;
+        }
+
+        double promedio = suma / notas.size();
+        return new DistribucionNotasDTO(promedio, conteos);
     }
 
 
