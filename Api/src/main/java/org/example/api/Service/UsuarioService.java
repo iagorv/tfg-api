@@ -93,4 +93,13 @@ public class UsuarioService {
         );
     }
 
+    public void actualizarEstadoPremium(Long id, boolean nuevoEstado) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        usuario.setPremium(nuevoEstado);
+        usuarioRepository.save(usuario);
+    }
+
+
 }

@@ -3,10 +3,7 @@ package org.example.api.Controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
-import org.example.api.Entities.dtos.RegistroDTO;
-import org.example.api.Entities.dtos.UsuarioDTO;
-import org.example.api.Entities.dtos.UsuarioInfoDTO;
-import org.example.api.Entities.dtos.UsuarioUpdateDTO;
+import org.example.api.Entities.dtos.*;
 import org.example.api.Service.UsuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,6 +73,20 @@ public class UsuarioController {
     private boolean esMayorDe16(LocalDate fechaNacimiento) {
         return ChronoUnit.YEARS.between(fechaNacimiento, LocalDate.now()) >= 16;
     }
+
+    @Operation(summary = "Actualizar estado premium del usuario")
+    @PatchMapping("/{id}/premium")
+    public ResponseEntity<?> actualizarPremium(
+            @PathVariable Long id,
+            @RequestBody PremiumUpdateDTO premiumUpdateDTO) {
+        try {
+            usuarioService.actualizarEstadoPremium(id, premiumUpdateDTO.isPremium());
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
 
 
 

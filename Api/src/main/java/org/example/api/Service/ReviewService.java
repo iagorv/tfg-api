@@ -12,6 +12,8 @@ import org.example.api.Entities.dtos.ReviewDTO;
 import org.example.api.Repository.JuegoRepository;
 import org.example.api.Repository.ReviewRepository;
 import org.example.api.Repository.UsuarioRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,8 +63,10 @@ public class ReviewService {
     }
 
     public List<ReviewConUsuarioDTO> obtenerUltimasReviewsDeJuegoConUsuario(Long juegoId) {
-        return reviewRepository.findTop6ByJuegoIdConUsuario(juegoId);
+        Pageable top6 = PageRequest.of(0, 6); // página 0, tamaño 6
+        return reviewRepository.findByJuegoIdConUsuario(juegoId, top6);
     }
+
 
     public DistribucionNotasDTO obtenerDistribucionNotasPorJuego(Long juegoId) {
         List<Double> notas = reviewRepository.findNotasByJuegoId(juegoId);
