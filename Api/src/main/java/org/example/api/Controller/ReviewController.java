@@ -8,6 +8,7 @@ import org.example.api.Entities.dtos.ReviewConUsuarioDTO;
 import org.example.api.Entities.dtos.ReviewCrearDTO;
 import org.example.api.Entities.dtos.ReviewDTO;
 import org.example.api.Service.ReviewService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,6 +62,18 @@ public class ReviewController {
         DistribucionNotasDTO distribucion = reviewService.obtenerDistribucionNotasPorJuego(juegoId);
         return ResponseEntity.ok(distribucion);
     }
+
+    @Operation(summary = "Obtener reviews paginadas de un usuario")
+    @GetMapping("/usuario/{id}/paginas")
+    public ResponseEntity<Page<ReviewDTO>> obtenerReviewsPaginadas(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+
+        Page<ReviewDTO> reviewsPage = reviewService.obtenerReviewsPaginadasDeUsuario(id, page, size);
+        return ResponseEntity.ok(reviewsPage);
+    }
+
 
 
 }

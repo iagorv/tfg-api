@@ -12,8 +12,10 @@ import org.example.api.Entities.dtos.ReviewDTO;
 import org.example.api.Repository.JuegoRepository;
 import org.example.api.Repository.ReviewRepository;
 import org.example.api.Repository.UsuarioRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -87,6 +89,12 @@ public class ReviewService {
         double promedio = suma / notas.size();
         return new DistribucionNotasDTO(promedio, conteos);
     }
+
+    public Page<ReviewDTO> obtenerReviewsPaginadasDeUsuario(Long usuarioId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("fechaReview").descending());
+        return reviewRepository.findByUsuarioId(usuarioId, pageable);
+    }
+
 
 
 }

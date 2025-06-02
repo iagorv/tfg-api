@@ -4,6 +4,7 @@ import org.example.api.Entities.Review;
 import org.example.api.Entities.Usuario;
 import org.example.api.Entities.dtos.ReviewConUsuarioDTO;
 import org.example.api.Entities.dtos.ReviewDTO;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -46,6 +47,23 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     ORDER BY r.fechaReview DESC
 """)
     List<ReviewConUsuarioDTO> findByJuegoIdConUsuario(@Param("juegoId") Long juegoId, Pageable pageable);
+
+    @Query("""
+    SELECT new org.example.api.Entities.dtos.ReviewDTO(
+        r.id,
+        j.nombre,
+        r.reseña,
+        r.nota,
+        j.id,
+        r.fechaReview
+    )
+    FROM Review r
+    JOIN r.juego j
+    WHERE r.usuario.id = :usuarioId
+    ORDER BY r.fechaReview DESC
+""")
+    Page<ReviewDTO> findByUsuarioId(@Param("usuarioId") Long usuarioId, Pageable pageable);
+
 
 
 
