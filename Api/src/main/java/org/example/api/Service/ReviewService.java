@@ -16,7 +16,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -94,6 +96,47 @@ public class ReviewService {
         Pageable pageable = PageRequest.of(page, size, Sort.by("fechaReview").descending());
         return reviewRepository.findByUsuarioId(usuarioId, pageable);
     }
+
+
+    public void eliminarReviewPorId(Long reviewId, Long usuarioId){
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new EntityNotFoundException("Review no encontrada"));
+
+        if (!review.getUsuario().getId().equals(usuarioId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "No tienes permiso para eliminar esta review.");
+        }
+
+
+        reviewRepository.delete(review);
+    }
+
+    public void editarReview(Long reviewId, ReviewCrearDTO reviewUpdateDTO, Long usuarioId) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new EntityNotFoundException("Review no encontrada"));
+
+        if (!review.getUsuario().getId().equals(usuarioId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "No tienes permiso para editar esta review.");
+        }
+
+        if (reviewUpdateDTO.getNota() < 0 || reviewUpdateDTO.getNota() > 10) {
+            throw new IllegalArgumentException("La nota debe estar entre 0 y 10.");
+        }
+
+        boolean esPremium = usuarioRepository.esPremium(usuarioId);
+        int maxLongitud = esPremium ? 800 : 300;
+
+        if (reviewUpdateDTO.getReseña() != null && reviewUpdateDTO.getReseña().length() > maxLongitud) {
+            throw new IllegalArgumentException("La reseña supera el límite de " + maxLongitud + " caracteres.");
+        }
+
+        // Solo actualizamos campos editables (nota y reseña)
+        review.setNota(reviewUpdateDTO.getNota());
+        review.setReseña(reviewUpdateDTO.getReseña());
+        review.setFechaReview(reviewUpdateDTO.getFechaCreacion()); // O la fecha actual
+
+        reviewRepository.save(review);
+    }
+
 
 
 

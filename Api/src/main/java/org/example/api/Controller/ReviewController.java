@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -72,8 +73,46 @@ public class ReviewController {
 
         Page<ReviewDTO> reviewsPage = reviewService.obtenerReviewsPaginadasDeUsuario(id, page, size);
         return ResponseEntity.ok(reviewsPage);
+    @Operation(summary = "Eliminar una review por ID y usuario")
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity<String> eliminarReview(
+            @PathVariable Long reviewId,
+            @RequestParam Long usuarioId
+    ) {
+        try {
+            reviewService.eliminarReviewPorId(reviewId, usuarioId);
+            return ResponseEntity.ok("Review eliminada exitosamente.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("La review no existe.");
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al eliminar la review.");
+        }
     }
 
 
+    @Operation(summary = "Editar una review existente")
+    @PutMapping("/{reviewId}")
+    public ResponseEntity<String> editarReview(
+            @PathVariable Long reviewId,
+            @RequestBody ReviewCrearDTO reviewUpdateDTO,
+            @RequestParam Long usuarioId
+    ) {
+        try {
+            reviewService.editarReview(reviewId, reviewUpdateDTO, usuarioId);
+            return ResponseEntity.ok("Review actualizada exitosamente.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("La review no existe.");
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del servidor.");
+        }
+    }
 
+
+        
 }
