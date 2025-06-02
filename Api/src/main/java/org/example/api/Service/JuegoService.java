@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class JuegoService {
@@ -121,6 +122,14 @@ public class JuegoService {
         Pageable pageable = PageRequest.of(page, size, Sort.by("nombre").ascending());
         return juegoRepository.findAllResumen(pageable);
     }
+
+    public List<JuegoResumenDTO> buscarJuegos(String query) {
+        return juegoRepository.findByNombreContainingIgnoreCase(query)
+                .stream()
+                .map(juego -> new JuegoResumenDTO(juego.getId(), juego.getNombre()))
+                .collect(Collectors.toList());
+    }
+
 
 
 

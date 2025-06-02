@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ReviewService {
@@ -60,7 +61,7 @@ public class ReviewService {
         Review review = new Review();
         review.setJuego(juego);
         review.setUsuario(usuario);
-        review.setReseña(reviewCreateDTO.getReseña());
+        review.setResena(reviewCreateDTO.getReseña());
         review.setNota(reviewCreateDTO.getNota());
         review.setFechaReview(reviewCreateDTO.getFechaCreacion());
         reviewRepository.save(review);
@@ -131,12 +132,26 @@ public class ReviewService {
 
         // Solo actualizamos campos editables (nota y reseña)
         review.setNota(reviewUpdateDTO.getNota());
-        review.setReseña(reviewUpdateDTO.getReseña());
+        review.setResena(reviewUpdateDTO.getReseña());
         review.setFechaReview(reviewUpdateDTO.getFechaCreacion()); // O la fecha actual
 
         reviewRepository.save(review);
     }
 
+
+    public List<ReviewDTO> buscarReviews(String query) {
+        return reviewRepository.buscarReviews(query)
+                .stream()
+                .map(review -> new ReviewDTO(
+                        review.getId(),
+                        review.getJuego().getNombre(),
+                        review.getResena(),
+                        review.getNota(),
+                        review.getJuego().getId(),
+                        review.getFechaReview()
+                ))
+                .collect(Collectors.toList());
+    }
 
 
 

@@ -64,5 +64,8 @@ public interface JuegoRepository extends JpaRepository<Juego, Long> {
 """)
     Page<JuegoResumenDTO> findAllResumen(Pageable pageable);
 
+    List<Juego> findByNombreContainingIgnoreCase(String nombre);
+
+
 
 }

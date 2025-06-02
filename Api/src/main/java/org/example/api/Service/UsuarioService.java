@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
@@ -100,6 +102,20 @@ public class UsuarioService {
         usuario.setPremium(nuevoEstado);
         usuarioRepository.save(usuario);
     }
+
+    public List<UsuarioDTO> buscarUsuarios(String query) {
+        return usuarioRepository.findByNombreContainingIgnoreCase(query)
+                .stream()
+                .map(usuario -> new UsuarioDTO(
+                        usuario.getId(),
+                        usuario.getNombre(),
+                        usuario.getEmail(),
+                        usuario.isPremium()
+                ))
+                .collect(Collectors.toList());
+    }
+
+
 
 
 }

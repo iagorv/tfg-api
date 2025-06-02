@@ -6,7 +6,6 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.Instant;
 import java.time.LocalDate;
 
 @Entity
@@ -29,9 +28,9 @@ public class Review {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    @Lob
+
     @Column(name = "`reseña`")
-    private String reseña;
+    private String resena;
 
     @Column(name = "nota")
     private double nota;
@@ -65,12 +64,12 @@ public class Review {
         this.usuario = usuario;
     }
 
-    public String getReseña() {
-        return reseña;
+    public String getResena() {
+        return resena;
     }
 
-    public void setReseña(String reseña) {
-        this.reseña = reseña;
+    public void setResena(String reseña) {
+        this.resena = reseña;
     }
 
     public double getNota() {

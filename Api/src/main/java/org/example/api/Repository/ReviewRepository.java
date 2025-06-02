@@ -17,7 +17,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     SELECT new org.example.api.Entities.dtos.ReviewDTO(
         r.id,
         j.nombre,
-        r.reseña,
+        r.resena,
         r.nota,
         j.id,
         r.fechaReview
@@ -35,7 +35,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     SELECT new org.example.api.Entities.dtos.ReviewConUsuarioDTO(
         r.id,
         u.nombre,
-        r.reseña,
+        r.resena,
         r.nota,
         j.id,
         r.fechaReview
@@ -52,7 +52,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     SELECT new org.example.api.Entities.dtos.ReviewDTO(
         r.id,
         j.nombre,
-        r.reseña,
+        r.resena,
         r.nota,
         j.id,
         r.fechaReview
@@ -71,6 +71,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("SELECT r.nota FROM Review r WHERE r.juego.id = :juegoId")
     List<Double> findNotasByJuegoId(@Param("juegoId") Long juegoId);
 
-
+    @Query("SELECT r FROM Review r JOIN FETCH r.juego WHERE LOWER(r.resena) LIKE LOWER(CONCAT('%', :texto, '%'))")
+    List<Review> buscarReviews(@Param("texto") String texto);
 
 }
