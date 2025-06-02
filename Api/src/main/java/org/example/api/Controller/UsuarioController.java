@@ -44,11 +44,6 @@ public class UsuarioController {
         }
     }
 
-
-
-
-
-
     @Operation(summary = "Registro de usuario")
     @PostMapping("/registro")
     public ResponseEntity<?> registrar(@RequestBody RegistroDTO registroDTO) {
