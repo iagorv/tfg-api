@@ -2,6 +2,7 @@ package org.example.api.Repository;
 
 import org.example.api.Entities.Juego;
 import org.example.api.Entities.dtos.JuegoResumenDTO;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -54,6 +55,14 @@ public interface JuegoRepository extends JpaRepository<Juego, Long> {
     """, nativeQuery = true)
     List<Object[]> findJuegosSimilares(@Param("juegoId") Long juegoId);
 
+    @Query("""
+    SELECT new org.example.api.Entities.dtos.JuegoResumenDTO(
+        j.id,
+        j.nombre
+    )
+    FROM Juego j
+""")
+    Page<JuegoResumenDTO> findAllResumen(Pageable pageable);
 
 
 }

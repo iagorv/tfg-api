@@ -6,6 +6,10 @@ import org.example.api.Entities.dtos.JuegoDetalleDTO;
 import org.example.api.Entities.dtos.JuegoNombreDTO;
 import org.example.api.Entities.dtos.JuegoResumenDTO;
 import org.example.api.Repository.JuegoRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -112,6 +116,10 @@ public class JuegoService {
         }
 
         return resultado;
+    }
+    public Page<JuegoResumenDTO> obtenerJuegosPaginados(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("nombre").ascending());
+        return juegoRepository.findAllResumen(pageable);
     }
 
 

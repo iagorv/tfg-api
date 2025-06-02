@@ -73,6 +73,10 @@ public class ReviewController {
 
         Page<ReviewDTO> reviewsPage = reviewService.obtenerReviewsPaginadasDeUsuario(id, page, size);
         return ResponseEntity.ok(reviewsPage);
+
+    }
+
+
     @Operation(summary = "Eliminar una review por ID y usuario")
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<String> eliminarReview(

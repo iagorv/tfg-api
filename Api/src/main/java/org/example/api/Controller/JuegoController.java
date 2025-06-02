@@ -7,6 +7,7 @@ import org.example.api.Entities.dtos.JuegoDetalleDTO;
 import org.example.api.Entities.dtos.JuegoNombreDTO;
 import org.example.api.Entities.dtos.JuegoResumenDTO;
 import org.example.api.Service.JuegoService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -65,6 +66,16 @@ public class JuegoController {
     public ResponseEntity<List<JuegoResumenDTO>> obtenerJuegosSimilares(@PathVariable Long id) {
         List<JuegoResumenDTO> similares = juegoService.obtenerJuegosSimilares(id);
         return ResponseEntity.ok(similares);
+    }
+
+    @Operation(summary = "Obtener juegos paginados")
+    @GetMapping("/paginas")
+    public ResponseEntity<Page<JuegoResumenDTO>> obtenerJuegosPaginados(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "12") int size) {
+
+        Page<JuegoResumenDTO> juegosPage = juegoService.obtenerJuegosPaginados(page, size);
+        return ResponseEntity.ok(juegosPage);
     }
 
 
