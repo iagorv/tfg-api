@@ -5,10 +5,19 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.example.api.Entities.dtos.*;
 import org.example.api.Service.UsuarioService;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -80,6 +89,80 @@ public class UsuarioController {
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
+    }
+
+    @PostMapping("/usuarios/{id}/foto")
+    public String subirFotoPerfil(@PathVariable Long id,
+                                  @RequestParam("fotoPerfil") MultipartFile archivo,
+                                  RedirectAttributes redirectAttributes) {
+        if (archivo.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "No se seleccionó ningún archivo.");
+            return "redirect:/usuarios/" + id;
+        }
+
+        String contentType = archivo.getContentType();
+        if (contentType == null ||
+                !(contentType.equals("image/jpeg") ||
+                        contentType.equals("image/png") ||
+                        contentType.equals("image/webp"))) {
+
+            redirectAttributes.addFlashAttribute("error", "Formato no válido. Solo se permiten imágenes JPG, PNG o WEBP.");
+            return "redirect:/usuarios/" + id;
+        }
+
+        String extension = switch (contentType) {
+            case "image/jpeg" -> ".jpg";
+            case "image/png" -> ".png";
+            case "image/webp" -> ".webp";
+            default -> "";
+        };
+
+        String nombreArchivo = id + extension;
+        Path carpeta = Paths.get("src/main/resources/static/img/users/");
+
+        try {
+            // Eliminar archivos anteriores con otras extensiones
+            Files.walk(carpeta)
+                    .filter(p -> p.getFileName().toString().matches(id + "\\.(jpg|png|webp)"))
+                    .forEach(p -> {
+                        try {
+                            Files.delete(p);
+                        } catch (IOException ignored) {}
+                    });
+
+            Path rutaFinal = carpeta.resolve(nombreArchivo);
+            Files.write(rutaFinal, archivo.getBytes());
+            redirectAttributes.addFlashAttribute("mensaje", "Foto de perfil actualizada correctamente.");
+
+        } catch (IOException e) {
+            redirectAttributes.addFlashAttribute("error", "Error al guardar la imagen.");
+        }
+
+        return "redirect:/usuarios/" + id;
+    }
+
+
+    @GetMapping("/usuarios/{id}/foto")
+    public ResponseEntity<Resource> obtenerFotoPerfil(@PathVariable Long id) throws IOException {
+        String[] extensiones = {".png", ".jpg", ".webp"};
+        Path folder = Paths.get("src/main/resources/static/img/users/");
+
+        for (String ext : extensiones) {
+            Path archivo = folder.resolve(id + ext);
+            if (Files.exists(archivo)) {
+                Resource resource = new UrlResource(archivo.toUri());
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_TYPE, Files.probeContentType(archivo))
+                        .body(resource);
+            }
+        }
+
+        // Si no existe imagen, devuelve la default
+        Path defaultImage = Paths.get("src/main/resources/static/img/user.png");
+        Resource resource = new UrlResource(defaultImage.toUri());
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_TYPE, Files.probeContentType(defaultImage))
+                .body(resource);
     }
 
 

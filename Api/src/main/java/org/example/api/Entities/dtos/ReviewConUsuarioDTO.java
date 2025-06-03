@@ -10,6 +10,7 @@ public class ReviewConUsuarioDTO {
     private Long juegoId;
     private LocalDate fechaReview;
 
+
     public ReviewConUsuarioDTO(Long id, String usuarioNombre, String reseña, Double nota, Long juegoId, LocalDate fechaReview) {
         this.id = id;
         this.usuarioNombre = usuarioNombre;
