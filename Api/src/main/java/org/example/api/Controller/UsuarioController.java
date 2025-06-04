@@ -92,22 +92,16 @@ public class UsuarioController {
     }
 
     @PostMapping("/usuarios/{id}/foto")
-    public String subirFotoPerfil(@PathVariable Long id,
-                                  @RequestParam("fotoPerfil") MultipartFile archivo,
-                                  RedirectAttributes redirectAttributes) {
+    public ResponseEntity<String> subirFotoPerfil(@PathVariable Long id,
+                                                  @RequestParam("fotoPerfil") MultipartFile archivo) {
         if (archivo.isEmpty()) {
-            redirectAttributes.addFlashAttribute("error", "No se seleccionó ningún archivo.");
-            return "redirect:/usuarios/" + id;
+            return ResponseEntity.badRequest().body("No se seleccionó ningún archivo.");
         }
 
         String contentType = archivo.getContentType();
         if (contentType == null ||
-                !(contentType.equals("image/jpeg") ||
-                        contentType.equals("image/png") ||
-                        contentType.equals("image/webp"))) {
-
-            redirectAttributes.addFlashAttribute("error", "Formato no válido. Solo se permiten imágenes JPG, PNG o WEBP.");
-            return "redirect:/usuarios/" + id;
+                !(contentType.equals("image/jpeg") || contentType.equals("image/png") || contentType.equals("image/webp"))) {
+            return ResponseEntity.badRequest().body("Formato no válido. Solo JPG, PNG o WEBP.");
         }
 
         String extension = switch (contentType) {
@@ -117,11 +111,11 @@ public class UsuarioController {
             default -> "";
         };
 
-        String nombreArchivo = id + extension;
         Path carpeta = Paths.get("src/main/resources/static/img/users/");
+        String nombreArchivo = id + extension;
 
         try {
-            // Eliminar archivos anteriores con otras extensiones
+            // Eliminar versiones anteriores
             Files.walk(carpeta)
                     .filter(p -> p.getFileName().toString().matches(id + "\\.(jpg|png|webp)"))
                     .forEach(p -> {
@@ -132,14 +126,14 @@ public class UsuarioController {
 
             Path rutaFinal = carpeta.resolve(nombreArchivo);
             Files.write(rutaFinal, archivo.getBytes());
-            redirectAttributes.addFlashAttribute("mensaje", "Foto de perfil actualizada correctamente.");
+
+            return ResponseEntity.ok("Foto de perfil actualizada correctamente.");
 
         } catch (IOException e) {
-            redirectAttributes.addFlashAttribute("error", "Error al guardar la imagen.");
+            return ResponseEntity.status(500).body("Error al guardar la imagen.");
         }
-
-        return "redirect:/usuarios/" + id;
     }
+
 
 
     @GetMapping("/usuarios/{id}/foto")
@@ -163,6 +157,16 @@ public class UsuarioController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_TYPE, Files.probeContentType(defaultImage))
                 .body(resource);
+    }
+    @Operation(summary = "Dar de baja al usuario (desactivar)")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> darDeBajaUsuario(@PathVariable Long id) {
+        try {
+            usuarioService.desactivarUsuario(id);
+            return ResponseEntity.ok("Usuario dado de baja correctamente.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
 

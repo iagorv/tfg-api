@@ -114,6 +114,18 @@ public class UsuarioService {
                 ))
                 .collect(Collectors.toList());
     }
+    public void desactivarUsuario(Long id) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        usuario.setActivo(false);
+        usuarioRepository.save(usuario);
+    }
+    public boolean estaActivo(Long idUsuario) {
+        return usuarioRepository.findById(idUsuario)
+                .map(Usuario::getActivo)
+                .orElse(false);
+    }
+
 
 
 
