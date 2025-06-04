@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "juego_usuario_estado")
@@ -37,7 +38,7 @@ public class JuegoUsuarioEstado {
     @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "fecha_cambio", nullable = false)
-    private Instant fechaCambio;
+    private LocalDate fechaCambio;
 
     public Long getId() {
         return id;
@@ -71,11 +72,11 @@ public class JuegoUsuarioEstado {
         this.estado = estado;
     }
 
-    public Instant getFechaCambio() {
+    public LocalDate getFechaCambio() {
         return fechaCambio;
     }
 
-    public void setFechaCambio(Instant fechaCambio) {
+    public void setFechaCambio(LocalDate fechaCambio) {
         this.fechaCambio = fechaCambio;
     }
 
