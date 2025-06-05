@@ -88,6 +88,20 @@ CREATE TABLE Juego_Usuario_Estado (
     FOREIGN KEY (usuario_id) REFERENCES Usuario(id) ON DELETE CASCADE,
     FOREIGN KEY (juego_id) REFERENCES Juego(id) ON DELETE CASCADE
 );
+
+CREATE TABLE Bitacora_Juego (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id BIGINT NOT NULL,
+    juego_id BIGINT NOT NULL,
+    fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
+    entrada TEXT NOT NULL,                         -- descripción libre
+    horas_jugadas DECIMAL(5,2),                    -- ej: 1.5 horas
+      
+
+    FOREIGN KEY (usuario_id) REFERENCES Usuario(id) ON DELETE CASCADE,
+    FOREIGN KEY (juego_id) REFERENCES Juego(id) ON DELETE CASCADE
+);
+
 INSERT INTO Usuario (nombre, email, contraseña, fecha_nacimiento) VALUES ('JuanGamer', 'juan@gamer.com', '1234_hash_falso', '1989-05-09'),
 ('LauPlayer', 'laura@juegos.net', 'abcd_hash_falso', '2009-05-05'),
  ('LeoRetro', 'leo@retrofan.org', 'retro_hash_falso', '2002-10-18');
@@ -185,14 +199,14 @@ INSERT INTO Juego (nombre, descripcion, desarrollador_id, año_salida) VALUES
 ('Super Smash Bros. Ultimate', 'Juego de lucha con personajes de múltiples franquicias.', 2, 2018),
 ('The Witcher 3: Wild Hunt', 'RPG de mundo abierto con una historia profunda.', 20, 2015),
 ('Minecraft', 'Sandbox creativo y de supervivencia con bloques.', 5, 2011),
-('Fortnite', 'Battle royale con construcción y eventos en vivo.', 13, 2017),
-('Dark Souls III', 'RPG de acción desafiante con mundo oscuro y misterioso.', 1, 2016), /*Cambiar  */
+('Inside', 'Juego de plataformas y puzles con atmósfera oscura y narrativa implícita.', 6, 2016),
+('Dark Souls III', 'RPG de acción desafiante con mundo oscuro y misterioso.', 1, 2016),
 ('Animal Crossing: New Leaf', 'Simulador social con muchas personalizaciones.', 2, 2013),
 ('The Legend of Zelda: Breath of the Wild', 'Revolucionario juego de aventura en mundo abierto.', 2, 2017),
 ('Overwatch', 'Shooter en equipo con héroes únicos.', 8, 2016),
 ('Forza Horizon 5', 'Juego de carreras en mundo abierto en México.', 11, 2021),
 ('Persona 5 Royal', 'RPG japonés con narrativa profunda y estilo único.', 19, 2020),
-('Celeste', 'Juego de plataformas desafiante con historia emocional.', 18, 2018), /*Cambiar  */
+('It Takes Two', 'Aventura cooperativa con mecánicas únicas para dos jugadores.', 6, 2021),
 ('Dead Space', 'Survival horror en una estación espacial.', 10, 2008),
 ('The Sims 4', 'Simulación de vida con muchas opciones de personalización.', 3, 2014),
 ('Mario Kart 8 Deluxe', 'Carreras de karts con personajes icónicos de Nintendo.', 2, 2017),
@@ -280,8 +294,9 @@ INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (26, 1);
 INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (27, 3), (27, 2);
 -- 28 Minecraft
 INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (28, 7), (28, 3);
--- 29 Fortnite
-INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (29, 5), (29, 7);
+-- 29 Inside
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (29, 1), (29, 9);
+
 -- 30 Dark Souls III
 INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (30, 1), (30, 3);
 -- 31 Animal Crossing: New Leaf
@@ -295,7 +310,7 @@ INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (34, 11);
 -- 35 Persona 5 Royal
 INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (35, 3), (35, 2);
 -- 36 Celeste (repetido)
-INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (36, 1), (36, 9);
+INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (36, 2), (36, 4);
 -- 37 Dead Space
 INSERT INTO Juego_Genero (juego_id, genero_id) VALUES (37, 1), (37, 8);
 -- 38 The Sims 4
@@ -429,8 +444,11 @@ INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (26, 4);
 INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (27, 1), (27, 2), (27, 3);
 -- 28 Minecraft
 INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (28, 1), (28, 4), (28, 16), (28, 17);
--- 29 Fortnite
-INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (29, 1), (29, 2), (29, 3), (29, 4), (29, 16), (29, 17);
+-- Inside
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES 
+(29, 1), -- PC
+(29, 2), -- PS5
+(29, 4); -- Switch
 -- 30 Dark Souls III
 INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (30, 1), (30, 2), (30, 6);
 -- 31 Animal Crossing: New Leaf
@@ -443,8 +461,13 @@ INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (33, 1), (33, 2), 
 INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (34, 1), (34, 3), (34, 9);
 -- 35 Persona 5 Royal
 INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (35, 2), (35, 6);
--- 36 Celeste (repetido)
-INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (36, 1), (36, 2), (36, 4);
+
+-- It Takes Two
+INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES 
+(36, 1), -- PC
+(36, 2), -- PS5
+(36, 3); -- Xbox Series X
+
 -- 37 Dead Space
 INSERT INTO Juego_Plataforma (juego_id, plataforma_id) VALUES (37, 6), (37, 7);
 -- 38 The Sims 4
