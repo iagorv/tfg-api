@@ -57,6 +57,17 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private Set<Review> reviews = new LinkedHashSet<>();
 
+    @OneToMany(mappedBy = "usuario")
+    private Set<BitacoraJuego> bitacoraJuegos = new LinkedHashSet<>();
+
+    public Set<BitacoraJuego> getBitacoraJuegos() {
+        return bitacoraJuegos;
+    }
+
+    public void setBitacoraJuegos(Set<BitacoraJuego> bitacoraJuegos) {
+        this.bitacoraJuegos = bitacoraJuegos;
+    }
+
     public Long getId() {
         return id;
     }
