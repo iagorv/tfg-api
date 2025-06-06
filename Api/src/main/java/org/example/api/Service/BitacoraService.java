@@ -53,5 +53,13 @@ public class BitacoraService {
         return bitacoraRepository.findByUsuarioId(usuarioId, pageable);
     }
 
+    public void eliminarEntradaPorId(Long id) {
+        if (!bitacoraRepository.existsById(id)) {
+            throw new EntityNotFoundException("Entrada no encontrada con id: " + id);
+        }
+        bitacoraRepository.deleteById(id);
+    }
+
+
 }
 

@@ -43,6 +43,18 @@ public class BitacoraController {
         Page<BitacoraDTO> bitacoraPage = bitacoraService.obtenerBitacoraPaginadaDeUsuario(id, page, size);
         return ResponseEntity.ok(bitacoraPage);
     }
+    @Operation(summary = "Eliminar una entrada de bitácora por ID")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminarEntrada(@PathVariable Long id) {
+        try {
+            bitacoraService.eliminarEntradaPorId(id);
+            return ResponseEntity.ok("Entrada eliminada correctamente.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al eliminar la entrada.");
+        }
+    }
 
 }
 
