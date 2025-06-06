@@ -3,15 +3,18 @@ package org.example.api.Entities.dtos;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+
 public class BitacoraDTO {
     private Long id;
+    private Long juegoId;
     private String nombreJuego;
     private String entrada;
     private BigDecimal horasJugadas;
     private LocalDate fecha;
 
-    public BitacoraDTO(Long id, String nombreJuego, String entrada, BigDecimal horasJugadas, LocalDate fecha) {
+    public BitacoraDTO(Long id, Long juegoId, String nombreJuego, String entrada, BigDecimal horasJugadas, LocalDate fecha) {
         this.id = id;
+        this.juegoId = juegoId;
         this.nombreJuego = nombreJuego;
         this.entrada = entrada;
         this.horasJugadas = horasJugadas;
@@ -56,5 +59,13 @@ public class BitacoraDTO {
 
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
+    }
+
+    public Long getJuegoId() {
+        return juegoId;
+    }
+
+    public void setJuegoId(Long juegoId) {
+        this.juegoId = juegoId;
     }
 }

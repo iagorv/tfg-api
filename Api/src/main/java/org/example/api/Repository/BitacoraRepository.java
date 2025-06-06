@@ -14,6 +14,7 @@ public interface BitacoraRepository extends JpaRepository<BitacoraJuego, Long> {
     @Query("""
 SELECT new org.example.api.Entities.dtos.BitacoraDTO(
     b.id,
+    j.id,
     j.nombre,
     b.entrada,
     b.horasJugadas,
