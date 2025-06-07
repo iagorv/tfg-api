@@ -39,8 +39,7 @@ public class BitacoraJuego {
     @Column(name = "entrada", nullable = false)
     private String entrada;
 
-    @Column(name = "horas_jugadas", precision = 5, scale = 2)
-    private BigDecimal horasJugadas;
+
 
     public Long getId() {
         return id;
@@ -82,12 +81,6 @@ public class BitacoraJuego {
         this.entrada = entrada;
     }
 
-    public BigDecimal getHorasJugadas() {
-        return horasJugadas;
-    }
 
-    public void setHorasJugadas(BigDecimal horasJugadas) {
-        this.horasJugadas = horasJugadas;
-    }
 
 }

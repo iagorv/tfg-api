@@ -17,7 +17,6 @@ SELECT new org.example.api.Entities.dtos.BitacoraDTO(
     j.id,
     j.nombre,
     b.entrada,
-    b.horasJugadas,
     b.fecha
 )
 FROM BitacoraJuego b

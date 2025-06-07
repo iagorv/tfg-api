@@ -42,7 +42,7 @@ public class BitacoraService {
         entrada.setUsuario(usuario);
         entrada.setJuego(juego);
         entrada.setEntrada(dto.getEntrada());
-        entrada.setHorasJugadas(dto.getHorasJugadas());
+
         entrada.setFecha(dto.getFecha() != null ? dto.getFecha() : LocalDate.now());
 
 

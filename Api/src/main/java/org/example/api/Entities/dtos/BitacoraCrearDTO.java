@@ -7,7 +7,7 @@ public class BitacoraCrearDTO {
     private Long usuarioId;
     private Long juegoId;
     private String entrada;
-    private BigDecimal horasJugadas;
+
     private LocalDate fecha;
 
 
@@ -36,13 +36,8 @@ public class BitacoraCrearDTO {
         this.entrada = entrada;
     }
 
-    public BigDecimal getHorasJugadas() {
-        return horasJugadas;
-    }
 
-    public void setHorasJugadas(BigDecimal horasJugadas) {
-        this.horasJugadas = horasJugadas;
-    }
+
     public LocalDate getFecha() {
         return fecha;
     }

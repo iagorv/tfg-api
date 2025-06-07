@@ -9,15 +9,15 @@ public class BitacoraDTO {
     private Long juegoId;
     private String nombreJuego;
     private String entrada;
-    private BigDecimal horasJugadas;
+
     private LocalDate fecha;
 
-    public BitacoraDTO(Long id, Long juegoId, String nombreJuego, String entrada, BigDecimal horasJugadas, LocalDate fecha) {
+    public BitacoraDTO(Long id, Long juegoId, String nombreJuego, String entrada, LocalDate fecha) {
         this.id = id;
         this.juegoId = juegoId;
         this.nombreJuego = nombreJuego;
         this.entrada = entrada;
-        this.horasJugadas = horasJugadas;
+
         this.fecha = fecha;
     }
 
@@ -45,13 +45,7 @@ public class BitacoraDTO {
         this.entrada = entrada;
     }
 
-    public BigDecimal getHorasJugadas() {
-        return horasJugadas;
-    }
 
-    public void setHorasJugadas(BigDecimal horasJugadas) {
-        this.horasJugadas = horasJugadas;
-    }
 
     public LocalDate getFecha() {
         return fecha;

@@ -95,7 +95,7 @@ CREATE TABLE Bitacora_Juego (
     juego_id BIGINT NOT NULL,
     fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
     entrada TEXT NOT NULL,                         -- descripción libre
-    horas_jugadas DECIMAL(5,2),                    -- ej: 1.5 horas
+
       
 
     FOREIGN KEY (usuario_id) REFERENCES Usuario(id) ON DELETE CASCADE,
