@@ -117,6 +117,14 @@ public class ReviewController {
         }
     }
 
+    @Operation(summary = "Obtener todas las reviews paginadas, ordenadas por fecha (más recientes primero)")
+    @GetMapping("/todas/paginadas")
+    public ResponseEntity<Page<ReviewConUsuarioDTO>> obtenerTodasLasReviewsPaginadas(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        Page<ReviewConUsuarioDTO> reviews = reviewService.obtenerTodasLasReviewsPaginadas(page, size);
+        return ResponseEntity.ok(reviews);
+    }
 
         
 }

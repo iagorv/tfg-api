@@ -74,4 +74,20 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("SELECT r FROM Review r JOIN FETCH r.juego WHERE LOWER(r.resena) LIKE LOWER(CONCAT('%', :texto, '%'))")
     List<Review> buscarReviews(@Param("texto") String texto);
 
+    @Query("""
+SELECT new org.example.api.Entities.dtos.ReviewConUsuarioDTO(
+    r.id,
+    u.nombre,
+    r.resena,
+    r.nota,
+    j.id,
+    r.fechaReview
+)
+FROM Review r
+JOIN r.usuario u
+JOIN r.juego j
+ORDER BY r.fechaReview DESC
+""")
+    Page<ReviewConUsuarioDTO> findAllConUsuario(Pageable pageable);
+
 }

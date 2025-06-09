@@ -152,6 +152,10 @@ public class ReviewService {
                 ))
                 .collect(Collectors.toList());
     }
+    public Page<ReviewConUsuarioDTO> obtenerTodasLasReviewsPaginadas(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("fechaReview").descending());
+        return reviewRepository.findAllConUsuario(pageable);
+    }
 
 
 
