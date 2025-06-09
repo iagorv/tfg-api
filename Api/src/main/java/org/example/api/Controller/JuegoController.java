@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,6 +78,26 @@ public class JuegoController {
 
         Page<JuegoResumenDTO> juegosPage = juegoService.obtenerJuegosPaginados(page, size);
         return ResponseEntity.ok(juegosPage);
+    }
+
+    
+    @GetMapping("/games/{gameId}/portadas")
+    public ResponseEntity<List<String>> obtenerPortadas(@PathVariable Long gameId) {
+        List<String> portadas = new ArrayList<>();
+
+        // portada oficial
+        portadas.add("http://localhost:8080/img/games/" + gameId + ".png");
+
+        // portadas alternativas
+        File folder = new File("src/main/resources/static/img/portadas_alt/");
+        File[] files = folder.listFiles((dir, name) -> name.startsWith(gameId + "_") && (name.endsWith(".png") || name.endsWith(".jpg")));
+        if (files != null) {
+            for (File file : files) {
+                portadas.add("http://localhost:8080/img/portadas_alt/" + file.getName());
+            }
+        }
+
+        return ResponseEntity.ok(portadas);
     }
 
 
