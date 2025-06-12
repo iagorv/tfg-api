@@ -51,7 +51,7 @@ public interface JuegoRepository extends JpaRepository<Juego, Long> {
       )
     GROUP BY j.id, j.nombre
     ORDER BY generos_en_comun DESC
-    LIMIT 5
+    LIMIT 4
     """, nativeQuery = true)
     List<Object[]> findJuegosSimilares(@Param("juegoId") Long juegoId);
 
